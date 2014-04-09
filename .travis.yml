@@ -1,0 +1,13 @@
+language: java
+script:
+    - mvn install
+    - mvn appengine:endpoints_get_client_lib
+    - cd drivelog.server-war/target/endpoints-client-libs/drivelog
+    - mvn install
+    - git clone https://github.com/HappyCarl/mvn-repo.git
+    - mkdir -p mvn-repo/snapshots
+    - mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots clean deploy
+    - cd mvn-repo
+    - git add *
+    - git commit -m "New Drivelog Java Clientlibs"
+    - git push origin master

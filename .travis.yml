@@ -5,10 +5,14 @@ script:
     - cd drivelog.server-war/target/endpoints-client-libs/drivelog
     - mvn install
     - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - git clone git@github.com:HappyCarl/mvn-repo.git
+    - git clone https://$GIT_TOKEN@github.com/$TRAVIS_REPO_SLUG.git
     - mkdir -p mvn-repo/snapshots
-    - mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots clean deploy
+    - mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots
+      clean deploy
     - cd mvn-repo
     - git add *
-    - git commit -m "New Drivelog Java Clientlibs"
+    - git commit -m "New Drivelog Java Clientlibs. Deploy ${TRAVIS_BUILD_NUMBER}."
     - git push origin master
+env:
+    global:
+        secure: hCuGBCuJaJpPZnrzG4uickZ2NsBBXRehi0oWNMZXz0NTUMJsKRiL0lyKkYiex3LJ6MH6+h+BbNaw9ps15HWznQhvM6Nk2RxR3ZjpkYXXys/5cBdc7Xi+mEPoBNPewSnTCbt4tIrW0KGnI7NKDWjz9xXzBLa/vLz/luc6gkAhVYw=

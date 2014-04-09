@@ -12,4 +12,4 @@ out
 .classpath
 .project
 *~
-Constants.java
+drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java

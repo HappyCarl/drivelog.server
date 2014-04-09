@@ -4,10 +4,11 @@ import javax.inject.Named;
 
 import com.google.api.server.spi.config.Api;
 
-import de.happycarl.drivelog.server.models.Greeting;
 import static de.happycarl.drivelog.server.OfyService.ofy;
 
-@Api(name = "drivelog", version = "v1")
+@Api(name = "drivelog", version = "v1", scopes = { Constants.EMAIL_SCOPE }, clientIds = {
+		Constants.WEB_CLIENT_ID, Constants.ANDROID_CLIENT_ID,
+		Constants.IOS_CLIENT_ID, Constants.API_EXPLORER_CLIENT_ID }, audiences = { Constants.ANDROID_AUDIENCE })
 public class DriveLogEndpoints {
 
 }

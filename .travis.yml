@@ -7,21 +7,22 @@ script:
 - sed 's/REPLACE_IOS_CLIENT_ID/'"$IOS_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
   > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
 - mvn install
-- mvn appengine:endpoints_get_client_lib
-- cd drivelog.server-war/target/endpoints-client-libs/drivelog
-- mvn install
-- echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- git clone https://$GIT_TOKEN@github.com/HappyCarl/mvn-repo.git mvn-repo
-- mkdir -p mvn-repo/snapshots
-- mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots
-  clean deploy
-- cd mvn-repo
-- git config --global user.email "info@travis-ci.org"
-- git config --global user.name "Travis CI"
-- git add *
-- git commit -m "New Drivelog Java Clientlibs. Deploy ${TRAVIS_BUILD_NUMBER}."
-- git push -u origin master &> /dev/null
-- cd ../../../../../drivelog.server-ear
+- if [ "$TRAVIS_BRANCH" = "master" ]; then mvn appengine:endpoints_get_client_lib; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cd drivelog.server-war/target/endpoints-client-libs/drivelog; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then mvn install; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; git clone https://$GIT_TOKEN@github.com/HappyCarl/mvn-repo.git mvn-repo; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then mkdir -p mvn-repo/snapshots; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots
+  clean deploy; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cd mvn-repo; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git config --global user.email "info@travis-ci.org"; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git config --global user.name "Travis CI"; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git add *; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git commit -m "New Drivelog Java Clientlibs. Deploy ${TRAVIS_BUILD_NUMBER}."; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git push -u origin master &> /dev/null; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then ../../../../drivelog.server-ear; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_SECRET_KEY" | mvn appengine:update;
   fi
 env:

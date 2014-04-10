@@ -22,9 +22,8 @@ script:
 - if [ "$TRAVIS_BRANCH" = "master" ]; then git commit -m "New Drivelog Java Clientlibs. Deploy ${TRAVIS_BUILD_NUMBER}."; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then git push -u origin master &> /dev/null; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then ../../../../drivelog.server-ear; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../../../../drivelog.server-ear; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_SECRET_KEY" | mvn appengine:update; fi;
-  fi
 env:
   global:
   - secure: uu2//EfRUYs1BO91U0YEs8s694LJ3NFtvib42ur9rsgAupOMIFY2ZrGr8sLSEEo2KWUIEYN4N+1galmwH9KMq7kMj97N+dU+9qDeXjJ5vqFiB/yrVbwsKo4xDIfePrfNA21Eyz+vCxn2f8lFa2rNwZPdhF2Tw/7Ev6eXLi4uvrk=

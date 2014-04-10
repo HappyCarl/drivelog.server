@@ -7,8 +7,7 @@ script:
 - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - git clone https://$GIT_TOKEN@github.com/HappyCarl/mvn-repo.git mvn-repo
 - mkdir -p mvn-repo/snapshots
-- mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots
-  clean deploy
+- mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots clean deploy
 - cd mvn-repo
 - git config --global user.email "info@travis-ci.org"
 - git config --global user.name "Travis CI"

@@ -1,5 +1,11 @@
 language: java
 script:
+- sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
+  > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
+- sed 's/REPLACE_ANDROID_CLIENT_ID/'"$ANDROID_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
+  > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
+- sed 's/REPLACE_IOS_CLIENT_ID/'"$IOS_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
+  > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
 - mvn install
 - mvn appengine:endpoints_get_client_lib
 - cd drivelog.server-war/target/endpoints-client-libs/drivelog
@@ -15,6 +21,9 @@ script:
 - git add *
 - git commit -m "New Drivelog Java Clientlibs. Deploy ${TRAVIS_BUILD_NUMBER}."
 - git push -u origin master &> /dev/null
+- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_SECRET\n" | mvn appengine:update; fi
 env:
   global:
-    secure: uu2//EfRUYs1BO91U0YEs8s694LJ3NFtvib42ur9rsgAupOMIFY2ZrGr8sLSEEo2KWUIEYN4N+1galmwH9KMq7kMj97N+dU+9qDeXjJ5vqFiB/yrVbwsKo4xDIfePrfNA21Eyz+vCxn2f8lFa2rNwZPdhF2Tw/7Ev6eXLi4uvrk=
+  - secure: uu2//EfRUYs1BO91U0YEs8s694LJ3NFtvib42ur9rsgAupOMIFY2ZrGr8sLSEEo2KWUIEYN4N+1galmwH9KMq7kMj97N+dU+9qDeXjJ5vqFiB/yrVbwsKo4xDIfePrfNA21Eyz+vCxn2f8lFa2rNwZPdhF2Tw/7Ev6eXLi4uvrk=
+  - secure: DazBOINsfZIagMmf9fQOAAqOvAavDEO9rNqG+Ih0BHb8UHudxnZD+u+ptKvSEopgNGmT40DZ/z8O21ryztMmsXBY92t7jRaoMskNzLvf2uAGkLOwYVPcgpHho8NxWLxwL2jQ84UwmBgvz0pExORY5wgQ5ARqf2MnU/IiNMFuYI8=
+  - secure: Ega8b3cs17drkx9hqEY3FmjVfLT77YzYS4DN7wVN4fgqSGUwsK5mmF97gBYW977RzoiaKwV3zPx3vSdZGymN6noXDjyXhzPt9ImPoEjn0lAt7aLrUclOUkcV2fyE7U6tpYeCtXdABwugMREyVhO5W2yzRpef73Rt5cm3CZwKr+k=

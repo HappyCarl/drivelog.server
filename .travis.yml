@@ -11,7 +11,7 @@ script:
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cd drivelog.server-war/target/endpoints-client-libs/drivelog; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn install; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; git clone https://$GIT_TOKEN@github.com/HappyCarl/mvn-repo.git mvn-repo; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git clone https://$GIT_TOKEN@github.com/HappyCarl/mvn-repo.git mvn-repo; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then mkdir -p mvn-repo/snapshots; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots
   clean deploy; fi
@@ -23,7 +23,7 @@ script:
 - if [ "$TRAVIS_BRANCH" = "master" ]; then git push -u origin master &> /dev/null; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then ../../../../drivelog.server-ear; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_SECRET_KEY" | mvn appengine:update;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_SECRET_KEY" | mvn appengine:update; fi;
   fi
 env:
   global:

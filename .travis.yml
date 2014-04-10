@@ -21,6 +21,7 @@ script:
 - git add *
 - git commit -m "New Drivelog Java Clientlibs. Deploy ${TRAVIS_BUILD_NUMBER}."
 - git push -u origin master &> /dev/null
+- cd ../../../../../
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_SECRET\n" | mvn appengine:update; fi
 env:
   global:

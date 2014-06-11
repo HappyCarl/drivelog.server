@@ -9,12 +9,12 @@
 	<parent>
 		<groupId>de.happycarl</groupId>
 		<artifactId>drivelog.server</artifactId>
-		<version>0.0.11</version>
+		<version>0.0.12</version>
 	</parent>
 
 	<properties>
 		<appengine.app.version>1-war</appengine.app.version>
-		<appengine.target.version>1.9.2</appengine.target.version>
+		<appengine.target.version>1.9.5</appengine.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -73,7 +73,6 @@
 			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${appengine.target.version}</version>
 				<configuration>
 					<enableJarClasses>false</enableJarClasses>
 					<lifecycleMappingMetadata>

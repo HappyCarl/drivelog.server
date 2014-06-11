@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.happycarl</groupId>
 	<artifactId>drivelog.server</artifactId>
-	<version>0.0.11</version>
+	<version>0.0.12</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<appengine.app.version>1</appengine.app.version>
-		<appengine.target.version>1.9.2</appengine.target.version>
+		<appengine.target.version>1.9.5</appengine.target.version>
 	</properties>
 
 	<build>

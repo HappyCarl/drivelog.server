@@ -25,8 +25,8 @@ public class GeoTownEndpoints {
 
 		if (data == null) {
 			data = new UserData(user);
+            OfyService.ofy().save().entity(data).now();
 		}
-		OfyService.ofy().save().entity(data).now();
 
 		return data;
 	}

@@ -1,4 +1,4 @@
-package de.happycarl.drivelog.server;
+package de.happycarl.geotown.server;
 
 public class Constants {
 	public static final String WEB_CLIENT_ID = "REPLACE_WEB_CLIENT_ID";

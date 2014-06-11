@@ -1,10 +1,10 @@
-package de.happycarl.drivelog.server;
+package de.happycarl.geotown.server;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
-import de.happycarl.drivelog.server.models.UserData;
+import de.happycarl.geotown.server.models.UserData;
 
 public class OfyService {
     static {

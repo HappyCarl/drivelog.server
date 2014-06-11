@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>drivelog.server-ear</artifactId>
+	<artifactId>geotown.server-ear</artifactId>
 	<packaging>ear</packaging>
 
 	<parent>
 		<groupId>de.happycarl</groupId>
-		<artifactId>drivelog.server</artifactId>
+		<artifactId>geotown.server</artifactId>
 		<version>0.0.15</version>
 	</parent>
 

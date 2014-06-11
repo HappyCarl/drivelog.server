@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>de.happycarl</groupId>
 		<artifactId>drivelog.server</artifactId>
-		<version>0.0.11</version>
+		<version>0.0.12</version>
 	</parent>
 
 	<build>
@@ -27,7 +27,6 @@
 			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${appengine.target.version}</version>
 				<configuration>
 					<email>heinz.deployer@gmail.com</email>
 					<oauth2>false</oauth2>
@@ -42,7 +41,7 @@
 		<dependency>
 			<groupId>de.happycarl</groupId>
 			<artifactId>drivelog.server-war</artifactId>
-			<version>0.0.11</version>
+			<version>0.0.12</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>

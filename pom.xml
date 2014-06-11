@@ -8,7 +8,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <appengine.app.version>1</appengine.app.version>
         <appengine.target.version>1.9.5</appengine.target.version>
-        <global.version>0.0.16</global.version>
+        <global.version>0.0.17</global.version>
     </properties>
 
 	<groupId>de.happycarl</groupId>

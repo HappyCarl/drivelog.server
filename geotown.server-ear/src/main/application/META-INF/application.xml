@@ -3,8 +3,8 @@
   <display-name>appengine-modules-ear</display-name>
   <module>
     <web>
-      <web-uri>drivelog.server-war-0.0.15.war</web-uri>
-      <context-root>/drivelog.server-war</context-root>
+      <web-uri>geotown.server-war-0.0.16.war</web-uri>
+      <context-root>/geotown.server-war</context-root>
     </web>
   </module>
   <library-directory>lib</library-directory>

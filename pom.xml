@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.happycarl</groupId>
-	<artifactId>drivelog.server</artifactId>
-	<version>0.0.15</version>
+	<artifactId>geotown.server</artifactId>
+	<version>0.0.16</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -25,7 +25,7 @@
 		</pluginManagement>
 	</build>
 	<modules>
-		<module>drivelog.server-war</module>
-		<module>drivelog.server-ear</module>
+		<module>geotown.server-war</module>
+		<module>geotown.server-ear</module>
 	</modules>
 </project>

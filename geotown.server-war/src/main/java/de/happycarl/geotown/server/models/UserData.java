@@ -1,4 +1,4 @@
-package de.happycarl.drivelog.server.models;
+package de.happycarl.geotown.server.models;
 
 import com.google.appengine.api.users.User;
 import com.googlecode.objectify.annotation.Entity;

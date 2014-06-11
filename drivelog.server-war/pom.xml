@@ -73,23 +73,9 @@
 			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
+                <version>${appengine.target.version}</version>
 				<configuration>
 					<enableJarClasses>false</enableJarClasses>
-					<lifecycleMappingMetadata>
-						<pluginExecutions>
-							<pluginExecution>
-								<pluginExecutionFilter>
-									<groupId>com.google.appengine</groupId>
-									<artifactId>appengine-maven-plugin</artifactId>
-									<versionRange>1.8.3</versionRange>
-									<goals>
-										<goal>test-compile</goal>
-										<goal>compile</goal>
-									</goals>
-								</pluginExecutionFilter>
-							</pluginExecution>
-						</pluginExecutions>
-					</lifecycleMappingMetadata>
 				</configuration>
 				<executions>
 					<execution>

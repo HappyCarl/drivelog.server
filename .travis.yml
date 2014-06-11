@@ -31,7 +31,6 @@ script:
   fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../../../../drivelog.server-ear; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_PASSWORD" | mvn appengine:rollback; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_PASSWORD" | mvn appengine:update;
   fi;
 env:

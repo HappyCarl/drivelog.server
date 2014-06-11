@@ -1,15 +1,15 @@
 language: java
 script:
-- sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
-  > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
-- sed 's/REPLACE_ANDROID_CLIENT_ID/'"$ANDROID_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
-  > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
-- sed 's/REPLACE_IOS_CLIENT_ID/'"$IOS_CLIENT_ID"'/g' drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
-  > drivelog.server-war/src/main/java/de/happycarl/drivelog/server/Constants.java
+- sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
+  > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
+- sed 's/REPLACE_ANDROID_CLIENT_ID/'"$ANDROID_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
+  > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
+- sed 's/REPLACE_IOS_CLIENT_ID/'"$IOS_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
+  > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
 - mvn install
 - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn appengine:endpoints_get_client_lib;
   fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then cd drivelog.server-war/target/endpoints-client-libs/drivelog;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cd geotown.server-war/target/endpoints-client-libs/geotown;
   fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn install; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "Host github.com\n\tStrictHostKeyChecking
@@ -25,12 +25,12 @@ script:
 - if [ "$TRAVIS_BRANCH" = "master" ]; then git config --global user.name "Travis CI";
   fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then git add *; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git commit -m "New Drivelog Java Clientlibs.
+- if [ "$TRAVIS_BRANCH" = "master" ]; then git commit -m "New GeoTown Java Clientlibs.
   Deploy ${TRAVIS_BUILD_NUMBER}."; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then git push -u origin master &> /dev/null;
   fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../../../../drivelog.server-ear; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../../../../geotown.server-ear; fi;
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_PASSWORD" | mvn appengine:update;
   fi;
 env:

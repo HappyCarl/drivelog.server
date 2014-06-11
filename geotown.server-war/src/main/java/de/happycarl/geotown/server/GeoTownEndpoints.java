@@ -1,6 +1,7 @@
 package de.happycarl.geotown.server;
 
 import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.users.User;
 
 import de.happycarl.geotown.server.models.UserData;
@@ -10,11 +11,15 @@ import de.happycarl.geotown.server.models.UserData;
 		Constants.IOS_CLIENT_ID, Constants.API_EXPLORER_CLIENT_ID }, audiences = { Constants.ANDROID_AUDIENCE })
 public class GeoTownEndpoints {
 
-	public UserData getCurrentUserData(User user) {
+	public UserData getCurrentUserData(User user) throws UnauthorizedException {
 		return getOrCreateUserData(user);
 	}
 
-	private static UserData getOrCreateUserData(User user) {
+	private static UserData getOrCreateUserData(User user) throws UnauthorizedException {
+        if (user == null) {
+            throw new UnauthorizedException("Authorization required");
+        }
+
 		UserData data = OfyService.ofy().load().type(UserData.class).id(user.getEmail())
 				.now();
 

@@ -1,4 +1,8 @@
 language: java
+branches:
+  only:
+    - master
+    - develop
 script:
 - sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
   > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java

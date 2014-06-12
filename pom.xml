@@ -32,6 +32,7 @@
 				<artifactId>jgitflow-maven-plugin</artifactId>
 				<version>1.0-m2</version>
 				<configuration>
+				    <noDeploy>true</noDeploy>
 					<flowInitContext>
 						<masterBranchName>master</masterBranchName>
 						<developBranchName>develop</developBranchName>

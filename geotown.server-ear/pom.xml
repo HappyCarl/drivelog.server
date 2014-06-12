@@ -5,11 +5,11 @@
 
 	<artifactId>geotown.server-ear</artifactId>
 	<packaging>ear</packaging>
-
+	<version>0.0.18</version>
 	<parent>
 		<groupId>de.happycarl</groupId>
 		<artifactId>geotown.server</artifactId>
-		<version>${global.version}</version>
+		<version>0.0.18</version>
 	</parent>
 
 	<build>

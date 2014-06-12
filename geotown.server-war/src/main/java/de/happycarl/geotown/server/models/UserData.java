@@ -4,6 +4,7 @@ import com.google.appengine.api.users.User;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import de.happycarl.geotown.server.util.Deref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserData {
         this.email = email;
     }
 
-    public List<Ref<Route>> getRoutes() {
-        return routes;
+    public List<Route> getRoutes() {
+        return Deref.deref(routes);
     }
 }

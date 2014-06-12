@@ -4,6 +4,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
+import de.happycarl.geotown.server.util.Deref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ public class Route {
 
     String name;
 
+    double latitude;
+    double longitude;
+
     List<Ref<Waypoint>> waypoints = new ArrayList<Ref<Waypoint>>();
 
     public Route(UserData owner, String name) {
@@ -34,12 +38,8 @@ public class Route {
         return id;
     }
 
-    public Ref<UserData> getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Ref<UserData> owner) {
-        this.owner = owner;
+    public UserData getOwner() {
+        return Deref.deref(owner);
     }
 
     public String getName() {
@@ -50,8 +50,24 @@ public class Route {
         this.name = name;
     }
 
-    public List<Ref<Waypoint>> getWaypoints() {
-        return waypoints;
+    public List<Waypoint> getWaypoints() {
+        return Deref.deref(waypoints);
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
 }

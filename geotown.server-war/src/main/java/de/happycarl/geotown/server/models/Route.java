@@ -1,6 +1,7 @@
 package de.happycarl.geotown.server.models;
 
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by jhbruhn on 12.06.14.
  */
 @Entity
+@Cache
 public class Route {
     @Id
     Long id;

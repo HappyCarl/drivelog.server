@@ -5,6 +5,9 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by jhbruhn on 12.06.14.
  */
@@ -17,6 +20,8 @@ public class Route {
     Ref<UserData> owner;
 
     String name;
+
+    List<Ref<Waypoint>> waypoints = new ArrayList<Ref<Waypoint>>();
 
     public Route(UserData owner, String name) {
         this.owner = Ref.create(owner);

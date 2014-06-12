@@ -6,11 +6,13 @@ import com.googlecode.objectify.ObjectifyService;
 
 import de.happycarl.geotown.server.models.Route;
 import de.happycarl.geotown.server.models.UserData;
+import de.happycarl.geotown.server.models.Waypoint;
 
 public class OfyService {
     static {
         factory().register(UserData.class);
         factory().register(Route.class);
+        factory().register(Waypoint.class);
     }
 
     public static Objectify ofy() {

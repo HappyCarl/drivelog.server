@@ -30,4 +30,28 @@ public class Route {
 
     private Route() {}
 
+    public Long getId() {
+        return id;
+    }
+
+    public Ref<UserData> getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Ref<UserData> owner) {
+        this.owner = owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Ref<Waypoint>> getWaypoints() {
+        return waypoints;
+    }
+
 }

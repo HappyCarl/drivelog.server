@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 public class UserData {
-	@Id
+    @Id
 	String email;
 
     List<Ref<Route>> routes = new ArrayList<Ref<Route>>();
@@ -20,4 +20,16 @@ public class UserData {
 	}
 
     private UserData() {}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Ref<Route>> getRoutes() {
+        return routes;
+    }
 }

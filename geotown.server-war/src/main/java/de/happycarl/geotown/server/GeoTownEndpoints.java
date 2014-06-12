@@ -4,7 +4,12 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.users.User;
 
+import com.googlecode.objectify.Ref;
+import de.happycarl.geotown.server.models.Route;
 import de.happycarl.geotown.server.models.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Api(name = "geotown", version = "v1", scopes = { Constants.EMAIL_SCOPE }, clientIds = {
 		Constants.WEB_CLIENT_ID, Constants.ANDROID_CLIENT_ID,
@@ -14,6 +19,12 @@ public class GeoTownEndpoints {
 	public UserData getCurrentUserData(User user) throws UnauthorizedException {
 		return getOrCreateUserData(user);
 	}
+
+    public List<Route> getCurrentUsersRoutes(User user) throws UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+
+        return userData.getRoutes();
+    }
 
 	private static UserData getOrCreateUserData(User user) throws UnauthorizedException {
         if (user == null) {

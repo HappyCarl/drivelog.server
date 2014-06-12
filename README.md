@@ -11,3 +11,5 @@ Start a Release: `mvn jgitflow:release-start`
 Finish a Release: `mvn jgitflow:release-finish`
 Start a Hotfix: `mvn jgitflow:hotfix-start`
 Finish a Hotfix: `mvn jgitflow:hotfix-finish`
+
+To make a release, you have to update `geotown.server-ear/src/main/application/META-INF/application.xml` to point to the newest version.

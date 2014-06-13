@@ -64,4 +64,8 @@ public class Waypoint {
     public List<String> getAnswers() {
         return answers;
     }
+    
+    public boolean equals(Waypoint that) {
+    	return this.id.equals(that.id);
+    }
 }

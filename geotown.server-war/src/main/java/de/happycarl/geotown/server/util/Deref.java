@@ -13,10 +13,10 @@ public class Deref {
     public static class Func<T> implements Function<Ref<T>, T> {
         public static Func<Object> INSTANCE = new Func<Object>();
 
-        @Override
-        public T apply(Ref<T> ref) {
-            return deref(ref);
-        }
+		public T apply(Ref<T> ref) {
+			return deref(ref);
+		}
+
     }
 
     public static <T> T deref(Ref<T> ref) {

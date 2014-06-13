@@ -1,38 +1,44 @@
 package de.happycarl.geotown.server.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.appengine.api.users.User;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import de.happycarl.geotown.server.util.Deref;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.happycarl.geotown.server.util.Deref;
 
 @Entity
 @Cache
 public class UserData {
-    @Id
+	@Id
 	String email;
 
-    List<Ref<Route>> routes = new ArrayList<Ref<Route>>();
+	List<Ref<Route>> routes = new ArrayList<Ref<Route>>();
 
 	public UserData(User user) {
 		this.email = user.getEmail();
 	}
 
-    private UserData() {}
+	private UserData() {
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public List<Route> getRoutes() {
-        return Deref.deref(routes);
-    }
+	public List<Route> getRoutes() {
+		return Deref.deref(routes);
+	}
+
+	public boolean equals(UserData that) {
+		return this.getEmail().equals(that.getEmail());
+	}
 }

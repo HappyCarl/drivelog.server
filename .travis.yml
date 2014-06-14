@@ -1,8 +1,8 @@
 language: java
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
 script:
 - sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
   > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
@@ -44,3 +44,5 @@ env:
   - secure: Ega8b3cs17drkx9hqEY3FmjVfLT77YzYS4DN7wVN4fgqSGUwsK5mmF97gBYW977RzoiaKwV3zPx3vSdZGymN6noXDjyXhzPt9ImPoEjn0lAt7aLrUclOUkcV2fyE7U6tpYeCtXdABwugMREyVhO5W2yzRpef73Rt5cm3CZwKr+k=
   - secure: mQ3NzKl3o/6ZUFn2fLwNGDkYE20HJvNyzoIgXeKkcB+vBhTbtBh+qR8ijjhCU2CesIX++e4a8qKOvkMFnoFX+zAhx0qcnD7RbMlwKe7X3rJtkpCAO+XtpDnBMvu2zM2BYABV8XDsxHU2EPT6FGOMMAO7r6ZoFD10Bm9daMDO0PM=
   - secure: L61odPaVCVYDHaDAOmu2EVe/F1qjd6GIDZN2fpBTXmOLoi+1laKOTo8A2gFXNDVeN0HM8h2u2ZyTcKSTIQKfGjj/DAzGKw9xFZFhf/2J+JYj9i0l8hS8ofDVNbkBHn8suZ+3yilR2BJokl5a+P9F5kjAhXzmPePMLq0iUVMaWF8=
+  - secure: KXc7dfTSclJq6J1OAuDSyrtMXAQUamzwN6Qsqq9gR4ciyCK3PmGs+CWGfGZ7xmzA21eSItMvM2FtYqmVdJtNFy1UCrf+xsD7Dhr1sLGSCeSXV/3EVwXBqGOSizKVAk3eEGHQ+6JPjcB/a6VGTceiioG5n50AgGJPRn0JUGnDWVg=
+  - secure: mtoM/NlGpcYOmMTIjJCjfBzs0z6w5KLXXVu1q2b2cn8XeZ7/fUSpY1s1zPIbc2xNM54+Bn58WMZ433hBT2vag7Y5iu2WP8E0IavU+ZP5oojpTc77nZ/fuaPpcEf3Lqp2mHT0lWSXsXheC2r9pQF+5chwlj3V11xqSstQjWdwNVU=

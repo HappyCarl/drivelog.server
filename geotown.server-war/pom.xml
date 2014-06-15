@@ -101,6 +101,7 @@
                                     <fileSet>
                                         <directory>${basedir}/src/main/coffee</directory>
                                         <includes>
+                                            <include>app.coffee</include>
                                             <include>**/*.coffee</include>
                                         </includes>
                                     </fileSet>

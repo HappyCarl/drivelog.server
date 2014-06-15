@@ -87,7 +87,7 @@
             <plugin>
                 <groupId>com.theoryinpractise</groupId>
                 <artifactId>coffee-maven-plugin</artifactId>
-                <version>1.4.7</version>
+                <version>1.4.9</version>
                 <executions>
                     <execution>
                         <id>coffee</id>

@@ -26,4 +26,6 @@ out
 
 *~
 
+geotown.server-war/src/main/coffee/constants.coffee
+geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
 

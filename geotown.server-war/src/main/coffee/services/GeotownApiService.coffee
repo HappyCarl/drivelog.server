@@ -10,7 +10,20 @@
       gapi.client.load('geotown', 'v1', loadCallback, apiRoot)
       gapi.client.load('oauth2', 'v2', loadCallback)
 
-    login: (cb) ->
-      gapi.auth.authorize({client_id: @CLIENT_ID, scope: ["https://www.googleapis.com/auth/userinfo.email"], immediate: false}, cb)
+    login: (mode, cb) ->
+      gapi.auth.authorize({
+          client_id: window.CLIENT_ID,
+          scope: "email",
+          immediate: mode,
+          response_type : 'token id_token'
+        }, () ->
+          gapi.client.oauth2.userinfo.get().execute((resp) ->
+            if(!resp.code)
+              token = gapi.auth.getToken()
+              token.access_token = token.id_token;
+              gapi.auth.setToken(token);
+            cb(resp.code)
+          )
+      )
   }
 )

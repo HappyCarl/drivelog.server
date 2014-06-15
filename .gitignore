@@ -13,4 +13,3 @@ out
 .project
 *~
 geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
-geotown.server-war/src/main/coffee/constants.coffee

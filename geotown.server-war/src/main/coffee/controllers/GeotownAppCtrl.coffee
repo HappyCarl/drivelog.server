@@ -5,10 +5,14 @@
   $scope.listRoutes = ->
     $scope.$apply()
 
+  $scope.login = ->
+    geotown.login false, (respCode) ->
+      alert "HI" if(!respCode)
+
   $scope.initApi = () ->
     geotown.init( ->
       $scope.is_backend_ready = true
-      geotown.login ->
+      geotown.login true, ->
         $scope.listRoutes()
     )
 )

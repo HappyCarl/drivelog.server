@@ -1,23 +1,22 @@
-@geotownApp.controller('GeotownAppCtrl', ($scope, $window, geotown) ->
+@geotownApp.controller('GeotownAppCtrl', ($scope, $rootScope, $window, geotown) ->
 
   $scope.myRoutes = []
 
   $window.init = ->
     $scope.$apply($scope.initApi)
 
-  $scope.fetchRoutes = ->
-    geotown.getMyRoutes (routes) ->
-      $scope.myRoutes = routes
-      $scope.$apply()
+  $rootScope.$on 'user:login', () ->
+    $scope.loggedIn = true
+    $scope.$apply()
 
   $scope.login = ->
     geotown.login false, (resp) ->
-      alert "HI" if(!resp.code)
+      $rootScope.$broadcast('user:login') if(!resp.code)
 
   $scope.initApi = () ->
     geotown.init( ->
-      $scope.is_backend_ready = true
+      $scope.isBackendReady = true
       geotown.login true, (resp) ->
-        $scope.fetchRoutes()
+        $rootScope.$broadcast('user:login') if(!resp.code)
     )
 )

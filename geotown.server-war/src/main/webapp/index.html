@@ -2,20 +2,59 @@
 <html lang="en" ng-app="geotownApp">
     <head>
         <meta charset="utf-8" />
+
         <title>GeoTown</title>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
         <script src="js/main.js"></script>
         <script src="https://apis.google.com/js/client.js?onload=init"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+
+        <style>
+            .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+        </style>
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap-theme.min.css" />
     </head>
     <body >
-        <div ng-controller="GeotownAppCtrl" class="container" ng-show="is_backend_ready">
-            <h1>Hi!</h1>
-            <a href="#" ng-click="login()">Login</a>
-            <ul>
-                <li ng-repeat="route in myRoutes">
-                    {{route.name}}
-                </li>
-            </ul>
+        <div ng-controller="GeotownAppCtrl" class="container">
+            <div class="container" ng-show="isBackendReady">
+                <h1>GeoTown</h1>
+                <a href="#" ng-click="login()" ng-show="!loggedIn">Login</a>
+                <div class="row">
+                    <div class="col-md-2" ng-controller="RouteListCtrl">
+                        <a href="#" ng-click="showCreateRouteModal()" class="btn">Create Route</a>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li ng-repeat="route in myRoutes">
+                                <a ng-click="selectRoute(route.id)">{{route.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container text-center" ng-show="!is_backend_ready">
+                Loading...
+            </div>
         </div>
+
+    <script type="text/ng-template" id="createRouteModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Create a Route.</h3>
+        </div>
+        <div class="modal-body">
+            <input type="text" ng-model="data.name" placeholder="Name" /><br />
+            <input type="text" ng-model="data.latitude" placeholder="lat" /><br />
+            <input type="text" ng-model="data.longitude" placeholder="lng" /><br />
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Create</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
     </body>
 </html>

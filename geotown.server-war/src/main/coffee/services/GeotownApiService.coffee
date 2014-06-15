@@ -29,5 +29,9 @@
     getMyRoutes: (cb) ->
       gapi.client.geotown.geoTownEndpoints.getMyRoutes().execute (resp) ->
         cb resp.items
+
+    createRoute: (route, cb) ->
+      gapi.client.geotown.geoTownEndpoints.createRoute(route).execute (resp) ->
+        cb resp.item
   }
 )

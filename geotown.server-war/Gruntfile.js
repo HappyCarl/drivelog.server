@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         coffee: {
             compile: {
                 files: {
-                    "target/generated-sources/js/main.js": ["src/main/coffee/app.coffee", "src/main/coffee/**/*.coffee"]
+                    "target/generated-sources/js/js/main.js": ["src/main/coffee/app.coffee", "src/main/coffee/**/*.coffee"]
                 }
             }
         },

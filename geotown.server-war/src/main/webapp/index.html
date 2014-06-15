@@ -11,6 +11,11 @@
         <div ng-controller="GeotownAppCtrl" class="container" ng-show="is_backend_ready">
             <h1>Hi!</h1>
             <a href="#" ng-click="login()">Login</a>
+            <ul>
+                <li ng-repeat="route in myRoutes">
+                    {{route.name}}
+                </li>
+            </ul>
         </div>
     </body>
 </html>

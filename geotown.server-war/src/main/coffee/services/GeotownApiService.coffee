@@ -25,5 +25,9 @@
             cb(resp)
           )
       )
+
+    getMyRoutes: (cb) ->
+      gapi.client.geotown.geoTownEndpoints.getMyRoutes().execute (resp) ->
+        cb resp.items
   }
 )

@@ -6,6 +6,8 @@ branches:
 script:
 - sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
   > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
+- sed 's/REPLACE_WEB_CLIENT_ID/'"$WEB_CLIENT_ID"'/g' geotown.server-war/src/main/coffee/constants.coffee
+  > geotown.server-war/src/main/coffee/constants.coffee
 - sed 's/REPLACE_ANDROID_CLIENT_ID/'"$ANDROID_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
   > geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
 - sed 's/REPLACE_IOS_CLIENT_ID/'"$IOS_CLIENT_ID"'/g' geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java

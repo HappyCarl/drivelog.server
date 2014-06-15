@@ -1,0 +1,9 @@
+{
+  "name": "geotown.server",
+  "version": "0.0.1",
+  "dependencies": {
+    "grunt": "~0.4.1",
+      "grunt-contrib-coffee": "^0.10.1",
+      "grunt-cli": "~0.1.9"
+  }
+}

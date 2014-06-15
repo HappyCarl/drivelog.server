@@ -85,31 +85,38 @@
 				</executions>
 			</plugin>
             <plugin>
-                <groupId>com.theoryinpractise</groupId>
-                <artifactId>coffee-maven-plugin</artifactId>
-                <version>1.4.9</version>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.14</version>
                 <executions>
                     <execution>
-                        <id>coffee</id>
+                        <id>install node and npm</id>
                         <goals>
-                            <goal>coffee</goal>
+                            <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <coffeeJoinSets>
-                                <joinSet>
-                                    <id>main</id>
-                                    <orderedFiles>
-                                        <file>${basedir}/src/main/coffee/app.coffee</file>
-                                    </orderedFiles>
-                                    <fileSet>
-                                        <directory>${basedir}/src/main/coffee</directory>
-                                        <includes>
-                                            <include>**/*.coffee</include>
-                                        </includes>
-                                    </fileSet>
-                                </joinSet>
-                            </coffeeJoinSets>
-                            <coffeeOutputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/js/</coffeeOutputDirectory>
+                            <nodeVersion>v0.10.28</nodeVersion>
+                            <npmVersion>1.4.9</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <!-- Optional configuration which provides for running any npm command -->
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>grunt build</id>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>build --no-color --target=${project.build.directory}/${project.artifactId}-${project.version}/</arguments>
                         </configuration>
                     </execution>
                 </executions>

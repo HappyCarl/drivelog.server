@@ -15,3 +15,6 @@ out
 geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
 constants.coffee
 constants.coffee-e
+
+geotown.server-war/node/
+geotown.server-war/node_modules/

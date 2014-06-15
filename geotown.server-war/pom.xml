@@ -98,10 +98,12 @@
                             <coffeeJoinSets>
                                 <joinSet>
                                     <id>main</id>
+                                    <orderedFiles>
+                                        <file>${basedir}/src/main/coffee/app.coffee</file>
+                                    </orderedFiles>
                                     <fileSet>
                                         <directory>${basedir}/src/main/coffee</directory>
                                         <includes>
-                                            <include>app.coffee</include>
                                             <include>**/*.coffee</include>
                                         </includes>
                                     </fileSet>

@@ -22,7 +22,7 @@
               token = gapi.auth.getToken()
               token.access_token = token.id_token;
               gapi.auth.setToken(token);
-            cb(resp.code)
+            cb(resp)
           )
       )
   }

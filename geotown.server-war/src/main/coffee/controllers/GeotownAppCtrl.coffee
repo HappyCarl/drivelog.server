@@ -6,13 +6,13 @@
     $scope.$apply()
 
   $scope.login = ->
-    geotown.login false, (respCode) ->
-      alert "HI" if(!respCode)
+    geotown.login false, (resp) ->
+      alert "HI" if(!resp.code)
 
   $scope.initApi = () ->
     geotown.init( ->
       $scope.is_backend_ready = true
-      geotown.login true, ->
-        $scope.listRoutes()
+      geotown.login true, (resp) ->
+        $scope.listRoutes() if !resp.code
     )
 )

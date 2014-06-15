@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>de.happycarl</groupId>
 		<artifactId>geotown.server</artifactId>
-		<version>0.0.26</version>
+		<version>0.0.27</version>
 	</parent>
 
 	<properties>
@@ -87,7 +87,7 @@
             <plugin>
                 <groupId>com.theoryinpractise</groupId>
                 <artifactId>coffee-maven-plugin</artifactId>
-                <version>1.4.7</version>
+                <version>1.4.9</version>
                 <executions>
                     <execution>
                         <id>coffee</id>
@@ -98,10 +98,12 @@
                             <coffeeJoinSets>
                                 <joinSet>
                                     <id>main</id>
+                                    <orderedFiles>
+                                        <file>${basedir}/src/main/coffee/app.coffee</file>
+                                    </orderedFiles>
                                     <fileSet>
                                         <directory>${basedir}/src/main/coffee</directory>
                                         <includes>
-                                            <include>app.coffee</include>
                                             <include>**/*.coffee</include>
                                         </includes>
                                     </fileSet>

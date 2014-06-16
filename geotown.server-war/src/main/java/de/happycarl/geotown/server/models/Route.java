@@ -3,6 +3,8 @@ package de.happycarl.geotown.server.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.api.server.spi.config.AnnotationBoolean;
+import com.google.api.server.spi.config.ApiResourceProperty;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
@@ -20,7 +22,7 @@ public class Route {
 	@Id
 	Long id;
 
-	@Parent
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
 	Ref<UserData> owner;
 
 	String name;
@@ -38,7 +40,7 @@ public class Route {
 	private Route() {
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -75,7 +77,7 @@ public class Route {
 	}
 
 	public boolean equals(Route that) {
-		return this.getId().equals(that.getId());
+		return this.getId()== (that.getId());
 	}
 
 }

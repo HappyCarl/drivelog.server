@@ -25,5 +25,17 @@
             cb(resp)
           )
       )
+
+    getMyRoutes: (cb) ->
+      gapi.client.geotown.geoTownEndpoints.getMyRoutes().execute (resp) ->
+        cb resp.items
+
+    createRoute: (route, cb) ->
+      gapi.client.geotown.geoTownEndpoints.createRoute(route).execute (resp) ->
+        cb resp
+
+    getRoute: (id, cb) ->
+      gapi.client.geotown.geoTownEndpoints.getRoute({routeId: parseInt(id)}).execute (resp) ->
+        cb resp
   }
 )

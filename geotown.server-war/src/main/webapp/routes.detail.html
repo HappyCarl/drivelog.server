@@ -1,0 +1,13 @@
+<div class="panel panel-primary">
+    <div class="panel-heading" ng-show="route != null">
+        <h3 class="panel-title">{{route.name}}</h3>
+    </div>
+    <div class="panel-body">
+        <div ng-show="route == null">
+            Please select one of your routes on the left. If you don't have one, create one!
+        </div>
+        <div ng-show="route != null">
+            <google-map draggable="true" center="map.center" zoom="map.zoom"></google-map>
+        </div>
+    </div>
+ </div>

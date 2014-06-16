@@ -25,12 +25,9 @@ module.exports = function(grunt) {
     grunt.registerTask('install', 'install the backend and frontend dependencies', function() {
         var exec = require('child_process').exec;
         var cb = this.async();
-        exec('npm install -g bower', {cwd: './'}, function(err, stdout, stderr) {
+        exec('bower install', {cwd: './'}, function(err, stdout, stderr) {
             console.log(stdout);
-            exec('bower install', {cwd: './'}, function(err, stdout, stderr) {
-                console.log(stdout);
-                cb();
-            });
+            cb();
         });
     });
 

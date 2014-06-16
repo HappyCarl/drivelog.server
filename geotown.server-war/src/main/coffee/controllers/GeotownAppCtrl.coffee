@@ -16,7 +16,11 @@
   $scope.initApi = () ->
     geotown.init( ->
       $scope.isBackendReady = true
+      $scope.$apply()
+      console.log "ulf"
       geotown.login true, (resp) ->
         $rootScope.$broadcast('user:login') if(!resp.code)
+      , () ->
+        $rootScope.loggedIn = false
     )
 )

@@ -4,6 +4,7 @@ branches:
   - master
   - develop
 install:
+- npm install -g bower
 - sed -i -e "s/REPLACE_WEB_CLIENT_ID/$WEB_CLIENT_ID/g" geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
 - sed -i -e "s/REPLACE_WEB_CLIENT_ID/$WEB_CLIENT_ID/g" geotown.server-war/src/main/coffee/constants.coffee
 - sed -i -e "s/REPLACE_ANDROID_CLIENT_ID/$ANDROID_CLIENT_ID/g" geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java

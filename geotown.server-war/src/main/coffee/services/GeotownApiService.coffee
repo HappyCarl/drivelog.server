@@ -10,7 +10,7 @@
       gapi.client.load('geotown', 'v1', loadCallback, apiRoot)
       gapi.client.load('oauth2', 'v2', loadCallback)
 
-    login: (mode, cb) ->
+    login: (mode, cb, errCb) ->
       gapi.auth.authorize({
           client_id: window.CLIENT_ID,
           scope: "email",
@@ -18,11 +18,13 @@
           response_type : 'token id_token'
         }, () ->
           gapi.client.oauth2.userinfo.get().execute((resp) ->
-            if(!resp.code)
+            if !resp.code?
               token = gapi.auth.getToken()
               token.access_token = token.id_token;
               gapi.auth.setToken(token);
               cb(resp)
+            else
+              errCb resp
           )
       )
 

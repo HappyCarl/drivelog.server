@@ -6,7 +6,7 @@
     $scope.$apply($scope.initApi)
 
   $rootScope.$on 'user:login', () ->
-    $scope.loggedIn = true
+    $rootScope.loggedIn = true
     $scope.$apply()
 
   $scope.login = ->

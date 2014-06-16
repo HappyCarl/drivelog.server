@@ -8,6 +8,8 @@
       console.log route
     )
 
-  $rootScope.$on 'user:login', $scope.fetchRoute
-
+  if(!$rootScope.loggedIn)
+    $rootScope.$on 'user:login', $scope.fetchRoute
+  else
+    $scope.fetchRoute()
 )

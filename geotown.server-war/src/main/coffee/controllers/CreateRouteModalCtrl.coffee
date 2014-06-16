@@ -5,7 +5,6 @@
     longitude: 0
   }
   $scope.ok = ->
-
     $modalInstance.close($scope.data)
 
   $scope.cancel = ->

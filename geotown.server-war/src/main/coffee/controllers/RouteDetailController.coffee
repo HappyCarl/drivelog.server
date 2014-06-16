@@ -5,7 +5,6 @@
     geotown.getRoute($state.params.id, (route) ->
       $scope.route = route
       $scope.$apply()
-      console.log route
     )
 
   if(!$rootScope.loggedIn)

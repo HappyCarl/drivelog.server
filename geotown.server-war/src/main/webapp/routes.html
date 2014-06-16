@@ -1,0 +1,7 @@
+<a href="#" ng-click="showCreateRouteModal()" class="btn">Create Route</a>
+<ul class="nav nav-pills nav-stacked">
+    <li ui-sref-active="active" ng-repeat="route in routes">
+        <a ui-sref="routes.detail({id: route.id})">{{route.name}}</a>
+    </li>
+</ul>
+<div ui-view></div>

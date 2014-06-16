@@ -32,6 +32,11 @@
 
     createRoute: (route, cb) ->
       gapi.client.geotown.geoTownEndpoints.createRoute(route).execute (resp) ->
-        cb resp.item
+        cb resp
+
+    getRoute: (id, cb) ->
+      console.log id
+      gapi.client.geotown.geoTownEndpoints.getRoute({routeId: parseInt(id)}).execute (resp) ->
+        cb resp
   }
 )

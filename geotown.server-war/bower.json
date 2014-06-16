@@ -1,0 +1,19 @@
+{
+  "name": "geotown.server",
+  "version": "0.0.27",
+  "homepage": "https://github.com/HappyCarl/geotown.server",
+  "authors": [
+    "Jan-Henrik Bruhn <jh.bruhn@me.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

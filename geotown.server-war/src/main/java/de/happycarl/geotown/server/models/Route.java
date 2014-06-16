@@ -23,7 +23,6 @@ public class Route {
 	Long id;
 
     @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
-    @Parent
 	Ref<UserData> owner;
 
 	String name;
@@ -41,7 +40,7 @@ public class Route {
 	private Route() {
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -78,7 +77,7 @@ public class Route {
 	}
 
 	public boolean equals(Route that) {
-		return this.getId().equals(that.getId());
+		return this.getId()== (that.getId());
 	}
 
 }

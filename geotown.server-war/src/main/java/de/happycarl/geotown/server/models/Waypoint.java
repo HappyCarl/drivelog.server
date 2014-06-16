@@ -16,7 +16,7 @@ import java.util.List;
 @Cache
 public class Waypoint {
     @Id
-    Long id;
+    String id;
 
     @Parent
     Ref<Route> route;

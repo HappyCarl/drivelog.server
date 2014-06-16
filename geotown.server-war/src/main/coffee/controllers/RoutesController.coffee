@@ -1,9 +1,9 @@
-@geotownApp.controller('RouteListCtrl', ($scope, $modal, geotown, $rootScope) ->
+@geotownApp.controller('RoutesController', ($scope, $modal, geotown, $state, $rootScope) ->
   $scope.routes = []
 
   $scope.fetchRoutes = ->
     geotown.getMyRoutes (routes) ->
-      $scope.myRoutes = routes
+      $scope.routes = routes
       $scope.$apply()
 
   $scope.showCreateRouteModal = ->
@@ -14,8 +14,8 @@
 
     modalInstance.result.then((route) ->
       geotown.createRoute(route, (resp) ->
-        console.log(resp)
-        $scope.fetchRoutes()
+        $scope.routes.push resp
+        $state.go('routes.detail', {id: resp.id})
       )
     )
 

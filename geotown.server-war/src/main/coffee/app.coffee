@@ -1,4 +1,4 @@
-@init = () ->
+@initStuff = () ->
   window.init()
 
-@geotownApp = angular.module('geotownApp', ['ui.bootstrap', 'ngRoute']);
+@geotownApp = angular.module('geotownApp', ['ui.router', 'ui.bootstrap']);

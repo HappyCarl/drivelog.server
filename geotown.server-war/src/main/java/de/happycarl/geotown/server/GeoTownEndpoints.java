@@ -45,7 +45,12 @@ public class GeoTownEndpoints {
         return route;
 	}
 
-	public Route addWaypoint(@Named("routeId") long routeId,
+    public Route getRoute(@Named("routeId") Long routeId, User user) {
+        return OfyService.ofy().load().type(Route.class).id(routeId)
+                .safe();
+    }
+
+	public Route addWaypoint(@Named("routeId") Long routeId,
 			@Named("lat") double latitude, @Named("lon") double longitude,
 			@Named("question") String question,
 			@Named("answers") List<String> answers, User user)

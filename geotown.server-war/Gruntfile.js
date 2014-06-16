@@ -7,7 +7,10 @@ module.exports = function(grunt) {
         coffee: {
             compile: {
                 files: {
-                    "target/generated-sources/js/main.js": ["src/main/coffee/app.coffee", "src/main/coffee/**/*.coffee"]
+                    "target/generated-sources/js/js/main.js": ["src/main/coffee/app.coffee", "src/main/coffee/router.coffee", "src/main/coffee/**/*.coffee"]
+                },
+                options: {
+                    bare: false
                 }
             }
         },
@@ -19,6 +22,15 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', ['coffee']);
+    grunt.registerTask('install', 'install the backend and frontend dependencies', function() {
+        var exec = require('child_process').exec;
+        var cb = this.async();
+        exec('bower install', {cwd: './'}, function(err, stdout, stderr) {
+            console.log(stdout);
+            cb();
+        });
+    });
+
+    grunt.registerTask('build', ['install', 'coffee']);
     grunt.registerTask('dev', ['watch:coffee']);
 }

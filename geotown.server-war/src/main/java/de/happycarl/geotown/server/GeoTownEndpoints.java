@@ -38,12 +38,19 @@ public class GeoTownEndpoints {
 		route.setLatitude(latitude);
 		route.setLongitude(longitude);
 
-		OfyService.ofy().save().entity(route).now();
+		OfyService.ofy().save().entities(route).now();
+        userData.addRoute(route);
+        OfyService.ofy().save().entities(userData).now();
 
-		return route;
+        return route;
 	}
 
-	public Route addWaypoint(@Named("routeId") long routeId,
+    public Route getRoute(@Named("routeId") Long routeId, User user) {
+        return OfyService.ofy().load().type(Route.class).id(routeId)
+                .safe();
+    }
+
+	public Route addWaypoint(@Named("routeId") Long routeId,
 			@Named("lat") double latitude, @Named("lon") double longitude,
 			@Named("question") String question,
 			@Named("answers") List<String> answers, User user)

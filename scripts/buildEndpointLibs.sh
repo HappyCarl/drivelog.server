@@ -7,6 +7,8 @@ TARGET="releases"
 if [[ $APP_VERSION == *SNAPSHOT* ]]
 then
     TARGET="snapshots"
+    sed -i -e "s/drive-log.appspot.com/beta.drive-log.appspot.com/g" geotown.server-war/src/main/java/de/happycarl/geotown/server/GeoTownEndpoints.java
+    mvn package
 fi
 
 mvn appengine:endpoints_get_client_lib

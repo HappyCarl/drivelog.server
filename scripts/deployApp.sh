@@ -6,7 +6,7 @@ APP_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dex
 ARGS=""
 if [[ $APP_VERSION == *SNAPSHOT* ]]
 then
-    ARGS="-Dversion=beta"
+    ARGS="-Dapp.version=beta"
 fi
 
 cd geotown.server-ear/

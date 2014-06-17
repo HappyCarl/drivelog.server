@@ -11,6 +11,10 @@
 		<version>0.0.34-SNAPSHOT</version>
 	</parent>
 
+    <properties>
+        <app.version>1</app.version>
+    </properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -31,6 +35,7 @@
 					<oauth2>false</oauth2>
 					<noCookies>true</noCookies>
 					<passin>true</passin>
+                    <version>${app.version}</version>
 				</configuration>
 			</plugin>
 		</plugins>

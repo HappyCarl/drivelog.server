@@ -12,32 +12,8 @@ install:
 - mvn install
 script:
 - mvn package
-- if [ "$TRAVIS_BRANCH" = "master" ]; then mvn appengine:endpoints_get_client_lib;
-  fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then cd geotown.server-war/target/endpoints-client-libs/geotown;
-  fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then mvn install; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "Host github.com\n\tStrictHostKeyChecking
-  no\n" >> ~/.ssh/config; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git clone https://$GIT_TOKEN@github.com/HappyCarl/mvn-repo.git
-  mvn-repo; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then mkdir -p mvn-repo/snapshots; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -DaltDeploymentRepository=snapshot-repo::default::file:./mvn-repo/snapshots
-  clean deploy; fi
-- if [ "$TRAVIS_BRANCH" = "master" ]; then cd mvn-repo; fi
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git config --global user.email "info@travis-ci.org";
-  fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git config --global user.name "Travis CI";
-  fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git add *; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git commit -m "New GeoTown Java Clientlibs.
-  Deploy ${TRAVIS_BUILD_NUMBER}."; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then git push -u origin master &> /dev/null;
-  fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then cd ../../../../geotown.server-ear; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then echo -e "$GOOGLE_PASSWORD" | mvn appengine:update;
-  fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then scripts/buildEndpointLibs.sh; fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then scripts/deployApp.sh; fi;
 env:
   global:
   - secure: uu2//EfRUYs1BO91U0YEs8s694LJ3NFtvib42ur9rsgAupOMIFY2ZrGr8sLSEEo2KWUIEYN4N+1galmwH9KMq7kMj97N+dU+9qDeXjJ5vqFiB/yrVbwsKo4xDIfePrfNA21Eyz+vCxn2f8lFa2rNwZPdhF2Tw/7Ev6eXLi4uvrk=

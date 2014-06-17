@@ -76,6 +76,10 @@ public class Route {
 		this.longitude = longitude;
 	}
 
+    public void addWaypoint(Waypoint wP) {
+        this.waypoints.add(Ref.create(wP));
+    }
+
 	public boolean equals(Route that) {
 		return this.getId()== (that.getId());
 	}

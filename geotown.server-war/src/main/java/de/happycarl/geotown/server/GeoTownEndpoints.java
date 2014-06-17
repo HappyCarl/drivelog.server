@@ -68,9 +68,11 @@ public class GeoTownEndpoints {
 		w.setQuestion(question);
 		w.getAnswers().addAll(answers);
 
-		route.getWaypoints().add(w);
+        OfyService.ofy().save().entities(w).now();
 
-		OfyService.ofy().save().entities(w, route).now();
+		route.addWaypoint(w);
+
+        OfyService.ofy().save().entities(route).now();
 
 		return route;
 	}

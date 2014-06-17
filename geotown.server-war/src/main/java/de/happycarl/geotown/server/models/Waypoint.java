@@ -1,5 +1,7 @@
 package de.happycarl.geotown.server.models;
 
+import com.google.api.server.spi.config.AnnotationBoolean;
+import com.google.api.server.spi.config.ApiResourceProperty;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
@@ -16,9 +18,9 @@ import java.util.List;
 @Cache
 public class Waypoint {
     @Id
-    String id;
+    Long id;
 
-    @Parent
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     Ref<Route> route;
 
     double latitude;

@@ -2,10 +2,10 @@
   $scope.routes = []
 
   $scope.fetchRoutes = ->
-    geotown.getMyRoutes (routes) ->
-      if(routes?)
+    $scope.routes = geotown.getMyRoutes().then (routes) ->
+      if routes?
         $scope.routes = routes
-      $scope.$apply()
+      console.log $scope.routes
 
   $scope.showCreateRouteModal = ->
     modalInstance = $modal.open {
@@ -14,10 +14,10 @@
     }
 
     modalInstance.result.then((route) ->
-      geotown.createRoute(route, (resp) ->
+      geotown.createRoute(route).then (resp) ->
         $scope.routes.push resp
         $state.go('routes.detail', {id: resp.id})
-      )
+
     )
 
   $rootScope.$on 'user:login', $scope.fetchRoutes

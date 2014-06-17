@@ -1,4 +1,5 @@
 @geotownApp.controller('GeotownAppCtrl', ($scope, $rootScope, $window, geotown) ->
+  $rootScope.loggedIn = false
 
   $window.init = ->
     $scope.$apply($scope.initApi)
@@ -6,7 +7,6 @@
 
   $rootScope.$on 'user:login', () ->
     $rootScope.loggedIn = true
-    $scope.$apply()
 
   $scope.login = ->
     geotown.login false, (resp) ->
@@ -15,10 +15,9 @@
   $scope.initApi = () ->
     geotown.init( ->
       $scope.isBackendReady = true
-      $scope.$apply()
-      console.log "ulf"
-      geotown.login true, (resp) ->
-        $rootScope.$broadcast('user:login') if(!resp.code)
+
+      geotown.login(true).then () ->
+        $rootScope.$broadcast('user:login')
       , () ->
         $rootScope.loggedIn = false
     )

@@ -1,4 +1,4 @@
-@geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown) ->
+@geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown, $modal) ->
   $scope.route = null
   $scope.routePromise = null
   $scope.selectedWaypoint = {latitude: 0, longitude: 0}
@@ -15,6 +15,18 @@
     $scope.map.center.latitude = $scope.selectedWaypoint.latitude
     $scope.map.center.longitude = $scope.selectedWaypoint.longitude
   )
+
+  $scope.showCreateWaypointModal = ->
+    modalInstance = $modal.open {
+      templateUrl: 'createWaypointModal.html'
+      controller: 'CreateWaypointModalCtrl'
+      resolve: {
+        route: ->
+          $scope.route
+      }
+    }
+
+    modalInstance.result.then($scope.fetchRoute)
 
   $scope.onMarkerClicked = (marker) ->
     marker.showWindow = true

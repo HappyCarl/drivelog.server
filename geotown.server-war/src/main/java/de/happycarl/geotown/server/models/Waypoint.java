@@ -31,6 +31,8 @@ public class Waypoint {
 
     public Waypoint(Route route, double latitude, double longitude) {
         this.route = Ref.create(route);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     private Waypoint() {}

@@ -72,5 +72,19 @@
             deferred.resolve resp
 
       deferred.promise
+
+    createWaypoint: (waypoint) ->
+      deferred = $q.defer()
+
+      gapi.client.geotown.geoTownEndpoints.createWaypoint(waypoint).execute (resp) ->
+        if resp.code?
+          $rootScope.$apply ->
+            deferred.reject resp
+        else
+          $rootScope.$apply ->
+            deferred.resolve resp
+
+      deferred.promise
+
   }
 )

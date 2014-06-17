@@ -50,8 +50,8 @@ public class GeoTownEndpoints {
                 .safe();
     }
 
-	public Route addWaypoint(@Named("routeId") Long routeId,
-			@Named("lat") double latitude, @Named("lon") double longitude,
+	public Route createWaypoint(@Named("routeId") Long routeId,
+			@Named("latitude") double latitude, @Named("longitude") double longitude,
 			@Named("question") String question,
 			@Named("answers") List<String> answers, User user)
 			throws UnauthorizedException, ForbiddenException {

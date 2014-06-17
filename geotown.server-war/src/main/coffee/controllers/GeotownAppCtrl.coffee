@@ -1,9 +1,8 @@
 @geotownApp.controller('GeotownAppCtrl', ($scope, $rootScope, $window, geotown) ->
 
-  $scope.myRoutes = []
-
   $window.init = ->
     $scope.$apply($scope.initApi)
+
 
   $rootScope.$on 'user:login', () ->
     $rootScope.loggedIn = true

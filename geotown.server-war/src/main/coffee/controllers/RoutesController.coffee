@@ -3,7 +3,8 @@
 
   $scope.fetchRoutes = ->
     geotown.getMyRoutes (routes) ->
-      $scope.routes = routes
+      if(routes?)
+        $scope.routes = routes
       $scope.$apply()
 
   $scope.showCreateRouteModal = ->

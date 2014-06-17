@@ -13,7 +13,7 @@ install:
 script:
 - mvn package
 - if [ "$TRAVIS_BRANCH" = "master" ]; then scripts/buildEndpointLibs.sh; fi;
-- if [ "$TRAVIS_BRANCH" = "master" ]; then scripts/deployApp.sh;fi;
+- if [ "$TRAVIS_BRANCH" = "master" ]; then scripts/deployApp.sh; fi;
 env:
   global:
   - secure: uu2//EfRUYs1BO91U0YEs8s694LJ3NFtvib42ur9rsgAupOMIFY2ZrGr8sLSEEo2KWUIEYN4N+1galmwH9KMq7kMj97N+dU+9qDeXjJ5vqFiB/yrVbwsKo4xDIfePrfNA21Eyz+vCxn2f8lFa2rNwZPdhF2Tw/7Ev6eXLi4uvrk=

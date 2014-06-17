@@ -9,7 +9,7 @@
         </div>
         <div ng-if="route != null">
             <google-map draggable="true" center="map.center" zoom="map.zoom">
-                <marker ng-repeat="w in route.waypoints" coords="w" click="onMarkerClicked(w, w)">
+                <marker ng-repeat="w in route.waypoints" coords="w" click="onMarkerClicked(w)">
                     <window show="m.showWindow" closeClick="closeClick()" ng-cloak>
                         <div>
                             <strong>Waypoint.</strong><br />

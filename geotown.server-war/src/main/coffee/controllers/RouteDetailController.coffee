@@ -10,7 +10,7 @@
     zoom: 8
   }
 
-  $scope.onMarkerClicked = (marker, waypoint) ->
+  $scope.onMarkerClicked = (marker) ->
     marker.showWindow = true
 
     $scope.$apply()

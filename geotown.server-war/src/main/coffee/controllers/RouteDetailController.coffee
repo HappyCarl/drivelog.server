@@ -1,5 +1,6 @@
 @geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown) ->
   $scope.route = null
+  $scope.routePromise = null
 
   $scope.map = {
     center: {
@@ -10,7 +11,7 @@
   }
 
   $scope.fetchRoute = ->
-    geotown.getRoute $state.params.id .then (route) ->
+    $scope.routePromise = geotown.getRoute($state.params.id).then (route) ->
       $scope.route = route
       $scope.map.center.latitude = route.latitude
       $scope.map.center.longitude = route.longitude

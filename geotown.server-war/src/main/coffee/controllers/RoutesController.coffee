@@ -1,11 +1,12 @@
 @geotownApp.controller('RoutesController', ($scope, $modal, geotown, $state, $rootScope) ->
   $scope.routes = []
 
+  $scope.routesPromise = null
+
   $scope.fetchRoutes = ->
-    $scope.routes = geotown.getMyRoutes().then (routes) ->
+    $scope.routesPromise = geotown.getMyRoutes().then (routes) ->
       if routes?
         $scope.routes = routes
-      console.log $scope.routes
 
   $scope.showCreateRouteModal = ->
     modalInstance = $modal.open {
@@ -14,10 +15,8 @@
     }
 
     modalInstance.result.then((route) ->
-      geotown.createRoute(route).then (resp) ->
-        $scope.routes.push resp
-        $state.go('routes.detail', {id: resp.id})
-
+      $state.go('routes.detail', {id: route.id})
+      $scope.routes.push route
     )
 
   $rootScope.$on 'user:login', $scope.fetchRoutes

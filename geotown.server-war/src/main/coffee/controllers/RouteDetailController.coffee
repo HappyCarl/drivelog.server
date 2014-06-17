@@ -10,6 +10,11 @@
     zoom: 8
   }
 
+  $scope.onMarkerClicked = (marker, waypoint) ->
+    marker.showWindow = true
+
+    $scope.$apply()
+
   $scope.fetchRoute = ->
     $scope.routePromise = geotown.getRoute($state.params.id).then (route) ->
       $scope.route = route

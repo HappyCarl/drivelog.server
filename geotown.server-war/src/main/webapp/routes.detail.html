@@ -8,7 +8,16 @@
             Please select one of your routes on the left. If you don't have one, create one!
         </div>
         <div ng-if="route != null">
-            <google-map draggable="true" center="map.center" zoom="map.zoom"></google-map>
+            <google-map draggable="true" center="map.center" zoom="map.zoom">
+                <marker ng-repeat="w in route.waypoints" coords="w" click="onMarkerClicked(w, w)">
+                    <window show="m.showWindow" closeClick="closeClick()" ng-cloak>
+                        <div>
+                            <strong>Waypoint.</strong><br />
+                            {{w.question}}
+                        </div>
+                    </window>
+                </marker>
+            </google-map>
         </div>
     </div>
  </div>

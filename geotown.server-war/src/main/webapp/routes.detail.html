@@ -7,7 +7,7 @@
         <div ng-show="route == null">
             Please select one of your routes on the left. If you don't have one, create one!
         </div>
-        <div ng-show="route != null">
+        <div ng-if="route != null">
             <google-map draggable="true" center="map.center" zoom="map.zoom"></google-map>
         </div>
     </div>

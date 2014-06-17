@@ -9,14 +9,14 @@
     $rootScope.loggedIn = true
 
   $scope.login = ->
-    geotown.login false, (resp) ->
-      $rootScope.$broadcast('user:login') if(!resp.code)
+    geotown.login (false).then ->
+      $rootScope.$broadcast('user:login')
 
   $scope.initApi = () ->
     geotown.init( ->
       $scope.isBackendReady = true
 
-      geotown.login(true).then () ->
+      geotown.login(true).then ->
         $rootScope.$broadcast('user:login')
       , () ->
         $rootScope.loggedIn = false

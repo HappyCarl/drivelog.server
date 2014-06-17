@@ -10,4 +10,5 @@ then
 fi
 
 cd geotown.server-ear/
+mvn ear:generate-application-xml
 echo -e "$GOOGLE_PASSWORD" | mvn appengine:update $ARGS

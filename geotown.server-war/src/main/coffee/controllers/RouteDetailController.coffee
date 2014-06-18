@@ -39,7 +39,10 @@
   $scope.fetchRoute = ->
     $scope.routePromise = geotown.getRoute($state.params.id).then (route) ->
       $scope.route = route
-      $scope.selectedWaypoint = $scope.route.waypoints[0] if $scope.route.waypoints?
+      if $scope.route.waypoints?
+        $scope.selectedWaypoint = $scope.route.waypoints[0]
+      else
+        $scope.map.center = $scope.route
 
   if(!$rootScope.loggedIn)
     $rootScope.$on 'user:login', $scope.fetchRoute

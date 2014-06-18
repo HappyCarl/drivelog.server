@@ -1,8 +1,17 @@
 @geotownApp.controller('CreateRouteModalCtrl', ($scope, $modalInstance, geotown) ->
   $scope.data = {
     name: "",
-    latitude: 0,
-    longitude: 0
+    latitude: 52,
+    longitude: 8
+  }
+  $scope.map = {
+    zoom: 10
+    options: {
+      disableDefaultUI: true
+      streetViewControl: false
+      panControl: false
+    }
+    refresh: false
   }
   $scope.creationPromise = null
 

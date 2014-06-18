@@ -3,9 +3,20 @@
 </div>
 <div class="modal-body">
     <div cg-busy="creationPromise"></div>
-    <input type="text" ng-model="data.name" placeholder="Name" /><br />
-    <google-places location="data" type="(cities)">
-    </google-places>
+    <form role="form">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" ng-model="data.name" placeholder="Enter a Name" id="name" />
+        </div>
+        <div class="form-group">
+            <label for="google_places_ac">Location</label>
+            <google-places location="data" class="form-control" type="(cities)">
+            </google-places>
+        </div>
+    </form>
+    <google-map refresh="map.refresh" draggable="true" center="data" zoom="map.zoom"  options="map.options">
+        <marker coords="data"></marker>
+    </google-map>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">Create</button>

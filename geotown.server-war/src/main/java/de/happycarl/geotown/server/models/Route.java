@@ -6,10 +6,7 @@ import java.util.List;
 import com.google.api.server.spi.config.AnnotationBoolean;
 import com.google.api.server.spi.config.ApiResourceProperty;
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.Cache;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.annotation.*;
 
 import de.happycarl.geotown.server.util.Deref;
 
@@ -56,6 +53,7 @@ public class Route {
 		this.name = name;
 	}
 
+    @ApiResourceProperty(name = "waypoints")
 	public List<Waypoint> getWaypoints() {
 		return Deref.deref(waypoints);
 	}

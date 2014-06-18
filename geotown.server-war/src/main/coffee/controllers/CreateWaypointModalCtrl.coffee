@@ -26,13 +26,13 @@
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
 
-  $timeout ->
+  $timeout(() ->
     $scope.map.refresh = true
     map = $scope.map.control.getGMap()
     map = $scope.map.control.refresh({})
     google.maps.event.addListener(map, 'dragend', () ->
-        google.maps.event.trigger(map, 'resize');
+      google.maps.event.trigger(map, 'resize');
+    )
+  , 1000)
 
-    $map.control
-  , 1000
 )

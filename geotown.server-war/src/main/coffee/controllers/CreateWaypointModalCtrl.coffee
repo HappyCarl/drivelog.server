@@ -16,6 +16,7 @@
     refresh: false
     control: {}
   }
+  $scope.showMap = false
   $scope.creationPromise = null
 
   $scope.ok = ->
@@ -27,12 +28,7 @@
     $modalInstance.dismiss('cancel')
 
   $timeout(() ->
-    $scope.map.refresh = true
-    map = $scope.map.control.getGMap()
-    map = $scope.map.control.refresh({})
-    google.maps.event.addListener(map, 'dragend', () ->
-      google.maps.event.trigger(map, 'resize');
-    )
-  , 1000)
+    $scope.showMap = true
+  , 10)
 
 )

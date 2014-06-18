@@ -1,7 +1,7 @@
 @geotownApp.controller('CreateWaypointModalCtrl', ($scope, $modalInstance, geotown, route, $timeout) ->
   $scope.data = {
     routeId: route.id
-    answers: ["Peda", "Ulf"]
+    answers: []
     question: "",
     latitude: 42,
     longitude: 8
@@ -18,6 +18,13 @@
   }
   $scope.showMap = false
   $scope.creationPromise = null
+
+
+  $scope.addAnswer = (answer) ->
+    $scope.data.answers.push(answer)
+
+  $scope.removeAnswer = (index) ->
+    $scope.data.answers = $scope.data.answers.splice(index, 1)
 
   $scope.ok = ->
     $scope.creationPromise = geotown.createWaypoint($scope.data).then (resp) ->

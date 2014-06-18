@@ -4,7 +4,6 @@
     latitude: 0,
     longitude: 0
   }
-
   $scope.creationPromise = null
 
   $scope.ok = ->

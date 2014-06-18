@@ -4,8 +4,8 @@
 <div class="modal-body">
     <div cg-busy="creationPromise"></div>
     <input type="text" ng-model="data.name" placeholder="Name" /><br />
-    <input type="text" ng-model="data.latitude" placeholder="lat" /><br />
-    <input type="text" ng-model="data.longitude" placeholder="lng" /><br />
+    <google-places location="data" type="(cities)">
+    </google-places>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">Create</button>

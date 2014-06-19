@@ -11,7 +11,7 @@
 
 	<groupId>de.happycarl</groupId>
 	<artifactId>geotown.server</artifactId>
-	<version>0.0.35-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 

@@ -15,7 +15,6 @@ install:
 - sed -i -e "s/REPLACE_IOS_CLIENT_ID/$IOS_CLIENT_ID/g" geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
 - mvn install
 script:
-- mvn package
 - if [[ $ACTION == "endpoints" ]]; then scripts/buildEndpointLibs.sh; fi;
 - if [[ $ACTION == "deploy" ]]; then scripts/deployApp.sh; fi;
 env:

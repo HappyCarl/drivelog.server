@@ -3,6 +3,7 @@ package de.happycarl.geotown.server;
 import java.util.List;
 
 import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ForbiddenException;
 import com.google.api.server.spi.response.UnauthorizedException;
@@ -17,16 +18,19 @@ import de.happycarl.geotown.server.models.Waypoint;
 		Constants.IOS_CLIENT_ID, Constants.API_EXPLORER_CLIENT_ID }, audiences = { Constants.ANDROID_AUDIENCE })
 public class GeoTownEndpoints {
 
+    @ApiMethod(name="userdata.get", path="userdata")
 	public UserData getCurrentUserData(User user) throws UnauthorizedException {
 		return getOrCreateUserData(user);
 	}
 
-	public List<Route> getMyRoutes(User user) throws UnauthorizedException {
+    @ApiMethod(name="routes.listMine", path="routes")
+	public List<Route> listMyRoutes(User user) throws UnauthorizedException {
 		UserData userData = getOrCreateUserData(user);
 
 		return userData.getRoutes();
 	}
 
+    @ApiMethod(name="routes.insert", path="routes")
 	public Route createRoute(@Named("name") String name,
 			@Named("latitude") double latitude,
 			@Named("longitude") double longitude, User user)
@@ -45,11 +49,13 @@ public class GeoTownEndpoints {
         return route;
 	}
 
+    @ApiMethod(name="routes.get", path="routes.get")
     public Route getRoute(@Named("routeId") Long routeId, User user) {
         return OfyService.ofy().load().type(Route.class).id(routeId)
                 .safe();
     }
 
+    @ApiMethod(name="waypoints.insert", path="waypoints")
 	public Route createWaypoint(@Named("routeId") Long routeId,
 			@Named("latitude") double latitude, @Named("longitude") double longitude,
 			@Named("question") String question,

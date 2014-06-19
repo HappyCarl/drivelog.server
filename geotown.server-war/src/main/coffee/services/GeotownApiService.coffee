@@ -86,5 +86,18 @@
 
       deferred.promise
 
+    listWaypoints: (routeId) ->
+      deferred = $q.defer()
+
+      gapi.client.geotown.waypoints.list({routeId: routeId}).execute (resp) ->
+        if resp.code?
+          $rootScope.$apply ->
+            deferred.reject resp
+        else
+          $rootScope.$apply ->
+            deferred.resolve resp.items
+
+      deferred.promise
+
   }
 )

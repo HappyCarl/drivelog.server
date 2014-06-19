@@ -15,6 +15,7 @@ import de.happycarl.geotown.server.util.Deref;
  */
 @Entity
 @Cache
+@Index
 public class Route {
 	@Id
 	Long id;

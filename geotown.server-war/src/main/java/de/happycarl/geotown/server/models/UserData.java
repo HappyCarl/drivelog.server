@@ -43,6 +43,18 @@ public class UserData {
         this.routes.add(Ref.create(route));
     }
 
+    public void removeRoute(Route route) {
+        int index = 0;
+        for(Ref<Route> ref : routes) {
+            if(ref.get().getId() == (route.getId())) {
+             break;
+            }
+            index++;
+        }
+        if(index > routes.size()) return;
+        this.routes.remove(index);
+    }
+
 	public boolean equals(UserData that) {
 		return this.getEmail().equals(that.getEmail());
 	}

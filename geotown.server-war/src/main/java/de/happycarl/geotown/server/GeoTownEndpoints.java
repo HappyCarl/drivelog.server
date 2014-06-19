@@ -55,6 +55,21 @@ public class GeoTownEndpoints {
                 .safe();
     }
 
+    @ApiMethod(name="routes.delete", path="routes")
+    public void deleteRoute(@Named("routeId") Long routeId, User user) throws ForbiddenException, UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+        Route route = OfyService.ofy().load().type(Route.class).id(routeId).safe();
+
+        if(!route.getOwner().equals(userData))
+            throw new ForbiddenException(
+                    "You're not allowed to delete this Route.");
+
+        userData.removeRoute(route);
+
+        OfyService.ofy().delete().entity(route).now();
+        OfyService.ofy().save().entities(userData).now();
+    }
+
     @ApiMethod(name="waypoints.list", path="waypoints")
     public List<Waypoint> listWaypoints(@Named("routeId") Long routeId, User user) {
         return OfyService.ofy().load().type(Route.class).id(routeId).safe().getWaypoints();
@@ -87,6 +102,18 @@ public class GeoTownEndpoints {
 
 		return route;
 	}
+
+    @ApiMethod(name="waypoints.delete", path="waypoints")
+    public void deleteWaypoint(@Named("waypointId") Long waypointId, User user) throws ForbiddenException, UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+        Waypoint waypoint = OfyService.ofy().load().type(Waypoint.class).id(waypointId).safe();
+
+        if(!waypoint.getRoute().getOwner().equals(userData))
+            throw new ForbiddenException(
+                    "You're not allowed to delete this Waypoint.");
+
+        OfyService.ofy().delete().entity(waypoint).now();
+    }
 
 	private static UserData getOrCreateUserData(User user)
 			throws UnauthorizedException {

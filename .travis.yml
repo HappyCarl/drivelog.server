@@ -3,6 +3,9 @@ branches:
   only:
   - master
   - develop
+ env:
+  - ACTION=deploy
+  - ACTION=endpoints
 install:
 - npm install -g bower
 - sed -i -e "s/REPLACE_WEB_CLIENT_ID/$WEB_CLIENT_ID/g" geotown.server-war/src/main/java/de/happycarl/geotown/server/Constants.java
@@ -12,8 +15,8 @@ install:
 - mvn install
 script:
 - mvn package
-- scripts/buildEndpointLibs.sh
-- scripts/deployApp.sh
+- if [[ $ACTION == "endpoints" ]]; then scripts/buildEndpointLibs.sh; fi;
+- if [[ $ACTION == "deploy" ]]; then scripts/deployApp.sh, fi;
 env:
   global:
   - secure: uu2//EfRUYs1BO91U0YEs8s694LJ3NFtvib42ur9rsgAupOMIFY2ZrGr8sLSEEo2KWUIEYN4N+1galmwH9KMq7kMj97N+dU+9qDeXjJ5vqFiB/yrVbwsKo4xDIfePrfNA21Eyz+vCxn2f8lFa2rNwZPdhF2Tw/7Ev6eXLi4uvrk=

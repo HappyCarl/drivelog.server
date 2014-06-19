@@ -37,7 +37,7 @@
     getMyRoutes: () ->
       deferred = $q.defer()
 
-      gapi.client.geotown.geoTownEndpoints.getMyRoutes().execute (resp) ->
+      gapi.client.geotown.routes.getMine().execute (resp) ->
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -50,7 +50,7 @@
     createRoute: (route) ->
       deferred = $q.defer()
 
-      gapi.client.geotown.geoTownEndpoints.createRoute(route).execute (resp) ->
+      gapi.client.geotown.routes.insert(route).execute (resp) ->
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -63,7 +63,7 @@
     getRoute: (id) ->
       deferred = $q.defer()
 
-      gapi.client.geotown.geoTownEndpoints.getRoute({routeId: parseInt(id)}).execute (resp) ->
+      gapi.client.geotown.routes.get({routeId: parseInt(id)}).execute (resp) ->
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -76,7 +76,7 @@
     createWaypoint: (waypoint) ->
       deferred = $q.defer()
 
-      gapi.client.geotown.geoTownEndpoints.createWaypoint(waypoint).execute (resp) ->
+      gapi.client.geotown.waypoints.insert(waypoint).execute (resp) ->
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp

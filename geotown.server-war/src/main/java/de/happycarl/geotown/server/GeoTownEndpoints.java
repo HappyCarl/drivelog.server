@@ -27,7 +27,7 @@ public class GeoTownEndpoints {
 	public List<Route> listMyRoutes(User user) throws UnauthorizedException {
 		UserData userData = getOrCreateUserData(user);
 
-		return userData.getRoutes();
+		return OfyService.ofy().load().type(Route.class).filter("owner", userData).list();
 	}
 
     @ApiMethod(name="routes.insert", path="routes")
@@ -72,7 +72,8 @@ public class GeoTownEndpoints {
 
     @ApiMethod(name="waypoints.list", path="waypoints")
     public List<Waypoint> listWaypoints(@Named("routeId") Long routeId, User user) {
-        return OfyService.ofy().load().type(Route.class).id(routeId).safe().getWaypoints();
+        Route r = OfyService.ofy().load().type(Route.class).id(routeId).safe();
+        return OfyService.ofy().load().type(Waypoint.class).filter("route", r).list();
     }
 
     @ApiMethod(name="waypoints.insert", path="waypoints")

@@ -3,7 +3,7 @@ branches:
   only:
   - master
   - develop
- env:
+env:
   - ACTION=deploy
   - ACTION=endpoints
 install:

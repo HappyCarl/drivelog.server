@@ -53,7 +53,6 @@ public class Route {
 		this.name = name;
 	}
 
-    @ApiResourceProperty(name = "waypoints")
 	public List<Waypoint> getWaypoints() {
 		return Deref.deref(waypoints);
 	}

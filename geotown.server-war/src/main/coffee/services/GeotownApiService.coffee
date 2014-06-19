@@ -37,7 +37,7 @@
     getMyRoutes: () ->
       deferred = $q.defer()
 
-      gapi.client.geotown.routes.getMine().execute (resp) ->
+      gapi.client.geotown.routes.listMine().execute (resp) ->
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp

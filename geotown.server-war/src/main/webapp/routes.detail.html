@@ -35,9 +35,9 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div class="list-group">
-                                <a ng-click="selectWaypoint(w)" ng-class="{active: selectedWaypoint == w}" class="list-group-item" ng-repeat="w in waypoints">{{w.question}}</a>
-                            </div>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li ng-class="{active: selectedWaypoint == w}" ng-repeat="w in waypoints"><a ng-click="selectWaypoint(w)">{{w.question}}</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

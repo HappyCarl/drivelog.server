@@ -1,7 +1,9 @@
 @geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown, $modal) ->
   $scope.route = null
   $scope.routePromise = null
-  $scope.selectedWaypoint = {latitude: 0, longitude: 0}
+  $scope.waypoints = []
+  $scope.waypointsPromise = null
+  $scope.selectedWaypoint = {latitude: 0, longitude: 0, init: false}
 
   $scope.map = {
     center: {
@@ -39,13 +41,19 @@
   $scope.fetchRoute = ->
     $scope.routePromise = geotown.getRoute($state.params.id).then (route) ->
       $scope.route = route
-      if $scope.route.waypoints?
-        $scope.selectedWaypoint = $scope.route.waypoints[0]
-      else
+      if not $scope.selectedWaypoint.init
         $scope.map.center = $scope.route
 
-  if(!$rootScope.loggedIn)
-    $rootScope.$on 'user:login', $scope.fetchRoute
-  else
+  $scope.fetchWaypoints = ->
+    $scope.waypointsPromise = geotown.listWaypoints($state.params.id).then (waypoints) ->
+      $scope.waypoints = waypoints
+
+  $scope.fetch = ->
+    $scope.fetchWaypoints()
     $scope.fetchRoute()
+
+  if(!$rootScope.loggedIn)
+    $rootScope.$on 'user:login', $scope.fetch
+  else
+    $scope.fetch()
 )

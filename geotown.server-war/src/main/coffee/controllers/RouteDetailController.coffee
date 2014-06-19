@@ -28,7 +28,7 @@
       }
     }
 
-    modalInstance.result.then($scope.fetchRoute)
+    modalInstance.result.then($scope.fetch)
 
   $scope.onMarkerClicked = (marker) ->
     marker.showWindow = true

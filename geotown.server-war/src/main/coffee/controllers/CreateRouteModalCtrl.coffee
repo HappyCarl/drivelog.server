@@ -1,13 +1,30 @@
-@geotownApp.controller('CreateRouteModalCtrl', ($scope, $modalInstance, geotown) ->
+@geotownApp.controller('CreateRouteModalCtrl', ($scope, $modalInstance, $timeout, geotown) ->
   $scope.data = {
     name: "",
-    latitude: 0,
-    longitude: 0
+    latitude: 52,
+    longitude: 8
   }
+  $scope.map = {
+    zoom: 10
+    options: {
+      disableDefaultUI: true
+      streetViewControl: false
+      panControl: false
+    }
+    refresh: false
+  }
+  $scope.showMap = false
+  $scope.creationPromise = null
+
   $scope.ok = ->
-    $modalInstance.close($scope.data)
+    $scope.creationPromise = geotown.createRoute($scope.data).then (resp) ->
+      $modalInstance.close(resp)
+
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
 
+  $timeout(() ->
+    $scope.showMap = true
+  , 10)
 )

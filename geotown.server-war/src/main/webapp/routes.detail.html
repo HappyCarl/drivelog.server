@@ -1,13 +1,47 @@
 <div class="panel panel-primary">
+    <div cg-busy="routePromise"></div>
     <div class="panel-heading" ng-show="route != null">
-        <h3 class="panel-title">{{route.name}}</h3>
+        <h3 class="panel-title">
+            {{route.name}}
+        </h3>
     </div>
     <div class="panel-body">
         <div ng-show="route == null">
             Please select one of your routes on the left. If you don't have one, create one!
         </div>
-        <div ng-show="route != null">
-            <google-map draggable="true" center="map.center" zoom="map.zoom"></google-map>
+        <div ng-if="route != null">
+            <div class="row">
+                <div class="col-md-8">
+                    <google-map draggable="true" center="map.center" zoom="map.zoom">
+                        <marker ng-repeat="w in route.waypoints" coords="w" click="onMarkerClicked(w)">
+                            <window show="m.showWindow" closeClick="closeClick()" ng-cloak>
+                                <div>
+                                    <strong>Waypoint.</strong><br />
+                                    {{w.question}}
+                                </div>
+                            </window>
+                        </marker>
+                    </google-map>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Waypoints
+                                <div class="pull-right">
+                                    <a ng-click="showCreateWaypointModal()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a ng-click="selectWaypoint(w)" ng-class="{active: selectedWaypoint == w}" class="list-group-item" ng-repeat="w in route.waypoints">{{w.question}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
  </div>

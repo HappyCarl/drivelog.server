@@ -1,16 +1,22 @@
 <div class="modal-header">
-    <h3 class="modal-title">Create a Route.</h3>
+    <h3 class="modal-title">Create a Waypoint.</h3>
 </div>
 <div class="modal-body">
     <div cg-busy="creationPromise"></div>
     <form role="form">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" ng-model="data.name" placeholder="Enter a Name" id="name" />
+            <label for="question">Question</label>
+            <input type="text" class="form-control" id="question" ng-model="data.question" placeholder="Question" />
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="Answer" ng-enter="addAnswer(text)" ng-model="text" />
+            <ul>
+                <li ng-repeat="a in data.answers">{{a}}</li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="google_places_ac">Location</label>
-            <google-places location="data" class="form-control" type="(cities)">
+            <google-places location="data" class="form-control" type="">
             </google-places>
         </div>
     </form>

@@ -1,4 +1,4 @@
-@geotownApp.factory('geotown', () ->
+@geotownApp.factory('geotown', ($q, $rootScope) ->
   {
     init: (cb) ->
       apisToLoad;
@@ -10,7 +10,9 @@
       gapi.client.load('geotown', 'v1', loadCallback, apiRoot)
       gapi.client.load('oauth2', 'v2', loadCallback)
 
-    login: (mode, cb, errCb) ->
+    login: (mode) ->
+      deferred = $q.defer()
+
       gapi.auth.authorize({
           client_id: window.CLIENT_ID,
           scope: "email",
@@ -20,24 +22,69 @@
           gapi.client.oauth2.userinfo.get().execute((resp) ->
             if !resp.code?
               token = gapi.auth.getToken()
-              token.access_token = token.id_token;
-              gapi.auth.setToken(token);
-              cb(resp)
+              token.access_token = token.id_token
+              gapi.auth.setToken(token)
+              $rootScope.$apply ->
+                deferred.resolve resp
             else
-              errCb resp
+              $rootScope.$apply ->
+                deferred.reject resp
           )
       )
 
-    getMyRoutes: (cb) ->
+      deferred.promise
+
+    getMyRoutes: () ->
+      deferred = $q.defer()
+
       gapi.client.geotown.geoTownEndpoints.getMyRoutes().execute (resp) ->
-        cb resp.items
+        if resp.code?
+          $rootScope.$apply ->
+            deferred.reject resp
+        else
+          $rootScope.$apply ->
+            deferred.resolve resp.items
 
-    createRoute: (route, cb) ->
+      deferred.promise
+
+    createRoute: (route) ->
+      deferred = $q.defer()
+
       gapi.client.geotown.geoTownEndpoints.createRoute(route).execute (resp) ->
-        cb resp
+        if resp.code?
+          $rootScope.$apply ->
+            deferred.reject resp
+        else
+          $rootScope.$apply ->
+            deferred.resolve resp
 
-    getRoute: (id, cb) ->
+      deferred.promise
+
+    getRoute: (id) ->
+      deferred = $q.defer()
+
       gapi.client.geotown.geoTownEndpoints.getRoute({routeId: parseInt(id)}).execute (resp) ->
-        cb resp
+        if resp.code?
+          $rootScope.$apply ->
+            deferred.reject resp
+        else
+          $rootScope.$apply ->
+            deferred.resolve resp
+
+      deferred.promise
+
+    createWaypoint: (waypoint) ->
+      deferred = $q.defer()
+
+      gapi.client.geotown.geoTownEndpoints.createWaypoint(waypoint).execute (resp) ->
+        if resp.code?
+          $rootScope.$apply ->
+            deferred.reject resp
+        else
+          $rootScope.$apply ->
+            deferred.resolve resp
+
+      deferred.promise
+
   }
 )

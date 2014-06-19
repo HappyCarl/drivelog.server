@@ -19,7 +19,8 @@ public class UserData {
 	@Id
 	String email;
 
-	List<Ref<Route>> routes = new ArrayList<Ref<Route>>();
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
+    List<Ref<Route>> routes = new ArrayList<Ref<Route>>();
 
 	public UserData(User user) {
 		this.email = user.getEmail();
@@ -30,10 +31,6 @@ public class UserData {
 
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public List<Route> getRoutes() {

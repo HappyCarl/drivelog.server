@@ -20,7 +20,6 @@ public class Waypoint {
     @Id
     Long id;
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     Ref<Route> route;
 
     double latitude;
@@ -37,7 +36,6 @@ public class Waypoint {
 
     private Waypoint() {}
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     public Route getRoute() {
         return route.get();
     }

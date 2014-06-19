@@ -19,7 +19,6 @@ public class Route {
 	@Id
 	Long id;
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
 	Ref<UserData> owner;
 
 	String name;
@@ -27,7 +26,8 @@ public class Route {
 	double latitude;
 	double longitude;
 
-	List<Ref<Waypoint>> waypoints = new ArrayList<Ref<Waypoint>>();
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
+    List<Ref<Waypoint>> waypoints = new ArrayList<Ref<Waypoint>>();
 
 	public Route(UserData owner, String name) {
 		this.owner = Ref.create(owner);

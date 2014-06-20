@@ -1,14 +1,19 @@
 package de.happycarl.geotown.server;
 
+import com.beoui.geocell.GeocellManager;
+import com.beoui.geocell.LocationCapableRepositorySearch;
+import com.beoui.geocell.model.Point;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ForbiddenException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.users.User;
+import com.googlecode.objectify.ObjectifyService;
 import de.happycarl.geotown.server.models.Route;
 import de.happycarl.geotown.server.models.UserData;
 import de.happycarl.geotown.server.models.Waypoint;
+import de.happycarl.geotown.server.util.OfyEntityLocationCapableRepositorySearchImpl;
 
 import java.util.List;
 
@@ -41,6 +46,13 @@ public class GeoTownEndpoints {
         return OfyService.ofy().load().type(Route.class).filter("owner", userData).list();
     }
 
+    @ApiMethod(name = "routes.listNear", path = "routes.near")
+    public List<Route> listNearRoutes(@Named("latitude") double latitude, @Named("longitude") double longitude, @Named("radius") double radius) {
+        LocationCapableRepositorySearch<Route> ofySearch = new OfyEntityLocationCapableRepositorySearchImpl(OfyService.ofy());
+
+        return GeocellManager.proximityFetch(new Point(latitude, longitude), 20, radius, ofySearch);
+    }
+
     @ApiMethod(name = "routes.insert", path = "routes")
     public Route createRoute(@Named("name") String name,
                              @Named("latitude") double latitude,
@@ -52,6 +64,7 @@ public class GeoTownEndpoints {
 
         route.setLatitude(latitude);
         route.setLongitude(longitude);
+        route.setGeocells(GeocellManager.generateGeoCell(new Point(latitude, longitude)));
 
         OfyService.ofy().save().entities(route).now();
         userData.addRoute(route);
@@ -84,6 +97,7 @@ public class GeoTownEndpoints {
     @ApiMethod(name = "waypoints.list", path = "waypoints")
     public List<Waypoint> listWaypoints(@Named("routeId") Long routeId, User user) {
         Route r = OfyService.ofy().load().type(Route.class).id(routeId).safe();
+
         return OfyService.ofy().load().type(Waypoint.class).filter("route", r).list();
     }
 

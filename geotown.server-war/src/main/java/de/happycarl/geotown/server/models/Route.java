@@ -1,5 +1,7 @@
 package de.happycarl.geotown.server.models;
 
+import com.beoui.geocell.model.LocationCapable;
+import com.beoui.geocell.model.Point;
 import com.google.api.server.spi.config.AnnotationBoolean;
 import com.google.api.server.spi.config.ApiResourceProperty;
 import com.googlecode.objectify.Ref;
@@ -18,7 +20,7 @@ import java.util.List;
 @Entity
 @Cache
 @Index
-public class Route {
+public class Route implements LocationCapable {
     @Id
     Long id;
 
@@ -28,6 +30,9 @@ public class Route {
 
     double latitude;
     double longitude;
+
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
+    List<String> geocells;
 
     @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     List<Ref<Waypoint>> waypoints = new ArrayList<Ref<Waypoint>>();
@@ -84,4 +89,24 @@ public class Route {
         return this.getId() == (that.getId());
     }
 
+    @Override
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
+    public Point getLocation() {
+        return new Point(latitude, longitude);
+    }
+
+    @Override
+    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
+    public String getKeyString() {
+        return id + "";
+    }
+
+    @Override
+    public List<String> getGeocells() {
+        return geocells;
+    }
+
+    public void setGeocells(List<String> geocells) {
+        this.geocells = geocells;
+    }
 }

@@ -19,8 +19,8 @@
 
     <repositories>
         <repository>
-            <id>maven</id>
-            <url>https://raw.github.com/HappyCarl/mvn-repo/tree/master/snapshots/</url>
+            <id>happycarl</id>
+            <url>https://raw.github.com/HappyCarl/mvn-repo/master/snapshots</url>
         </repository>
     </repositories>
 

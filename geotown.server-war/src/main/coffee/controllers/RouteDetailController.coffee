@@ -1,15 +1,15 @@
 @geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown, $modal) ->
-  initialWaypoint = {latitude: 0, longitude: 0, init: false, loading: true}
+
+  @initialWaypoint = {latitude: 0, longitude: 0, init: false, loading: true}
 
   $scope.route = null
   $scope.routePromise = null
   $scope.waypoints = []
   $scope.waypointsPromise = null
-  $scope.selectedWaypoint = initialWaypoint
+  $scope.selectedWaypoint = @initialWaypoint
 
   $scope.map = {
-    center:
-    {
+    center: {
       latitude: 0,
       longitude: 0
     },
@@ -25,8 +25,7 @@
     modalInstance = $modal.open {
       templateUrl: 'createWaypointModal.html'
       controller: 'CreateWaypointModalCtrl'
-      resolve:
-      {
+      resolve: {
         route: ->
           $scope.route
       }

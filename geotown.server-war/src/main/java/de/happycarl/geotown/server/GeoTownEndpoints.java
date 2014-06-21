@@ -67,8 +67,6 @@ public class GeoTownEndpoints {
         route.setGeocells(GeocellManager.generateGeoCell(new Point(latitude, longitude)));
 
         OfyService.ofy().save().entities(route).now();
-        userData.addRoute(route);
-        OfyService.ofy().save().entities(userData).now();
 
         return route;
     }
@@ -88,10 +86,7 @@ public class GeoTownEndpoints {
             throw new ForbiddenException(
                     "You're not allowed to delete this Route.");
 
-        userData.removeRoute(route);
-
         OfyService.ofy().delete().entity(route).now();
-        OfyService.ofy().save().entities(userData).now();
     }
 
     @ApiMethod(name = "waypoints.list", path = "waypoints")
@@ -121,10 +116,6 @@ public class GeoTownEndpoints {
         w.getAnswers().addAll(answers);
 
         OfyService.ofy().save().entities(w).now();
-
-        route.addWaypoint(w);
-
-        OfyService.ofy().save().entities(route).now();
 
         return route;
     }

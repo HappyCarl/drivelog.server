@@ -20,9 +20,6 @@ public class UserData {
     @Id
     String email;
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
-    List<Ref<Route>> routes = new ArrayList<Ref<Route>>();
-
     String username;
 
     public UserData(User user) {
@@ -42,26 +39,6 @@ public class UserData {
 
     public String getUsername() {
         return this.username;
-    }
-
-    public List<Route> getRoutes() {
-        return Deref.deref(routes);
-    }
-
-    public void addRoute(Route route) {
-        this.routes.add(Ref.create(route));
-    }
-
-    public void removeRoute(Route route) {
-        int index = 0;
-        for (Ref<Route> ref : routes) {
-            if (ref.get().getId() == (route.getId())) {
-                break;
-            }
-            index++;
-        }
-        if (index > routes.size()) return;
-        this.routes.remove(index);
     }
 
     public boolean equals(UserData that) {

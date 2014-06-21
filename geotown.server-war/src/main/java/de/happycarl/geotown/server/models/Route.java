@@ -34,9 +34,6 @@ public class Route implements LocationCapable {
     @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     List<String> geocells;
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
-    List<Ref<Waypoint>> waypoints = new ArrayList<Ref<Waypoint>>();
-
     public Route(UserData owner, String name) {
         this.owner = Ref.create(owner);
         this.name = name;
@@ -61,10 +58,6 @@ public class Route implements LocationCapable {
         this.name = name;
     }
 
-    public List<Waypoint> getWaypoints() {
-        return Deref.deref(waypoints);
-    }
-
     public double getLatitude() {
         return latitude;
     }
@@ -79,10 +72,6 @@ public class Route implements LocationCapable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
-
-    public void addWaypoint(Waypoint wP) {
-        this.waypoints.add(Ref.create(wP));
     }
 
     public boolean equals(Route that) {

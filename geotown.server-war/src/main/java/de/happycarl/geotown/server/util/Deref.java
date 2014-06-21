@@ -17,7 +17,7 @@ public class Deref {
 
     public static <T> List<T> deref(List<Ref<T>> reflist) {
         List<T> n = new ArrayList<T>(reflist.size());
-        for(Ref<T> ref : reflist)
+        for (Ref<T> ref : reflist)
             n.add(deref(ref));
         return n;
     }

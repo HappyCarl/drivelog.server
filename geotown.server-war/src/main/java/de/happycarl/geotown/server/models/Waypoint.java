@@ -1,12 +1,10 @@
 package de.happycarl.geotown.server.models;
 
-import com.google.api.server.spi.config.AnnotationBoolean;
-import com.google.api.server.spi.config.ApiResourceProperty;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +14,11 @@ import java.util.List;
  */
 @Entity
 @Cache
+@Index
 public class Waypoint {
     @Id
     Long id;
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     Ref<Route> route;
 
     double latitude;
@@ -35,9 +33,9 @@ public class Waypoint {
         this.longitude = longitude;
     }
 
-    private Waypoint() {}
+    private Waypoint() {
+    }
 
-    @ApiResourceProperty(ignored = AnnotationBoolean.TRUE)
     public Route getRoute() {
         return route.get();
     }
@@ -58,6 +56,10 @@ public class Waypoint {
         this.longitude = longitude;
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     public String getQuestion() {
         return question;
     }
@@ -69,8 +71,8 @@ public class Waypoint {
     public List<String> getAnswers() {
         return answers;
     }
-    
+
     public boolean equals(Waypoint that) {
-    	return this.id.equals(that.id);
+        return this.id.equals(that.id);
     }
 }

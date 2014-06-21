@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>de.happycarl</groupId>
 		<artifactId>geotown.server</artifactId>
-		<version>0.1.1</version>
+		<version>0.2.0</version>
 	</parent>
 
 	<properties>
@@ -16,6 +16,17 @@
 		<appengine.target.version>1.9.5</appengine.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+    <repositories>
+        <repository>
+            <id>happycarl</id>
+            <url>https://raw.github.com/HappyCarl/mvn-repo/master/snapshots</url>
+        </repository>
+				<repository>
+						<id>happycarl-releases</id>
+						<url>https://raw.github.com/HappyCarl/mvn-repo/master/releases</url>
+				</repository>
+    </repositories>
 
 	<dependencies>
 		<dependency>
@@ -39,11 +50,16 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		<dependency>
-			<groupId>com.googlecode.objectify</groupId>
-			<artifactId>objectify</artifactId>
-			<version>4.1.2</version>
-		</dependency>
+    <dependency>
+      <groupId>com.googlecode.objectify</groupId>
+      <artifactId>objectify</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.beoui</groupId>
+      <artifactId>geocell</artifactId>
+      <version>0.0.4</version>
+    </dependency>
 	</dependencies>
 
 	<build>

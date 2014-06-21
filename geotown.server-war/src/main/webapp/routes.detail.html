@@ -1,8 +1,8 @@
 <div class="panel panel-primary">
-    <div cg-busy="routePromise"></div>
     <div class="panel-heading" ng-show="route != null">
         <h3 class="panel-title">
             {{route.name}}
+            <a class="btn btn-danger pull-right btn-xs" ng-click="deleteRoute(route)"><span class="glyphicon glyphicon-trash"></span></a>
         </h3>
     </div>
     <div class="panel-body">
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <google-map draggable="true" center="map.center" zoom="map.zoom">
-                        <marker ng-repeat="w in route.waypoints" coords="w" click="onMarkerClicked(w)">
+                        <marker ng-repeat="w in waypoints" coords="w" click="onMarkerClicked(w)">
                             <window show="m.showWindow" closeClick="closeClick()" ng-cloak>
                                 <div>
                                     <strong>Waypoint.</strong><br />
@@ -29,14 +29,17 @@
                             <h3 class="panel-title">
                                 Waypoints
                                 <div class="pull-right">
-                                    <a ng-click="showCreateWaypointModal()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                    <a ng-click="showCreateWaypointModal()" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div class="list-group">
-                                <a ng-click="selectWaypoint(w)" ng-class="{active: selectedWaypoint == w}" class="list-group-item" ng-repeat="w in route.waypoints">{{w.question}}</a>
-                            </div>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li ng-class="{active: selectedWaypoint == w}" ng-repeat="w in waypoints"><a ng-click="selectWaypoint(w)">{{w.question}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer" ng-show="selectedWaypoint != null && !selectedWaypoint.loading">
+                            <a ng-click="deleteWaypoint(selectedWaypoint)" class="btn btn-danger">Delete Waypoint</a>
                         </div>
                     </div>
                 </div>

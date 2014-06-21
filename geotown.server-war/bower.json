@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "angular-google-maps": "~1.1.2",
-    "angular-busy": "~4.0.4",
     "angular-loading-bar": "~0.4.3"
   }
 }

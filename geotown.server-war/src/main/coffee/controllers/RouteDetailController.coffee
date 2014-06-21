@@ -30,6 +30,11 @@
 
     modalInstance.result.then($scope.fetch)
 
+  $scope.deleteRoute = (route) ->
+    geotown.deleteRoute((route.id)).then ->
+      $rootScope.$broadcast "routes:refresh"
+      $state.go ("routes")
+
   $scope.onMarkerClicked = (marker) ->
     marker.showWindow = true
     $scope.selectedWaypoint = marker

@@ -20,4 +20,5 @@
     )
 
   $rootScope.$on 'user:login', $scope.fetchRoutes
+  $rootScope.$on 'routes:refresh', $scope.fetchRoutes
 )

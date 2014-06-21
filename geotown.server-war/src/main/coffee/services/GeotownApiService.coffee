@@ -89,6 +89,18 @@
 
       deferred.promise
 
+    deleteRoute: (id) ->
+      cfpLoadingBar.start()
+      deferred = $q.defer()
+
+      gapi.client.geotown.routes.delete({routeId: parseInt(id)}).execute (resp) ->
+
+        cfpLoadingBar.complete()
+        $rootScope.$apply ->
+          deferred.resolve resp
+
+      deferred.promise
+
     createWaypoint: (waypoint) ->
       cfpLoadingBar.start()
       deferred = $q.defer()

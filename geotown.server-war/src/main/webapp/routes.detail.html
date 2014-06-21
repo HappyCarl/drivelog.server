@@ -38,6 +38,9 @@
                                 <li ng-class="{active: selectedWaypoint == w}" ng-repeat="w in waypoints"><a ng-click="selectWaypoint(w)">{{w.question}}</a></li>
                             </ul>
                         </div>
+                        <div class="panel-footer" ng-show="selectedWaypoint != null && !selectedWaypoint.loading">
+                            <a ng-click="deleteWaypoint(selectedWaypoint)" class="btn btn-danger">Delete Waypoint</a>
+                        </div>
                     </div>
                 </div>
             </div>

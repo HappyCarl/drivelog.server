@@ -1,12 +1,15 @@
 @geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown, $modal) ->
+  initialWaypoint = {latitude: 0, longitude: 0, init: false, loading: true}
+
   $scope.route = null
   $scope.routePromise = null
   $scope.waypoints = []
   $scope.waypointsPromise = null
-  $scope.selectedWaypoint = {latitude: 0, longitude: 0, init: false}
+  $scope.selectedWaypoint = initialWaypoint
 
   $scope.map = {
-    center: {
+    center:
+    {
       latitude: 0,
       longitude: 0
     },
@@ -22,7 +25,8 @@
     modalInstance = $modal.open {
       templateUrl: 'createWaypointModal.html'
       controller: 'CreateWaypointModalCtrl'
-      resolve: {
+      resolve:
+      {
         route: ->
           $scope.route
       }
@@ -34,6 +38,13 @@
     geotown.deleteRoute((route.id)).then ->
       $rootScope.$broadcast "routes:refresh"
       $state.go ("routes")
+
+  $scope.deleteWaypoint = (w) ->
+    $scope.selectedWaypoint = initialWaypoint
+    $scope.map.center = $scope.route
+    geotown.deleteWaypoint((w.id)).then ->
+      $scope.fetchWaypoints()
+
 
   $scope.onMarkerClicked = (marker) ->
     marker.showWindow = true

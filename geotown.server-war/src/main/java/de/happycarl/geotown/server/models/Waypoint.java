@@ -56,6 +56,10 @@ public class Waypoint {
         this.longitude = longitude;
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     public String getQuestion() {
         return question;
     }

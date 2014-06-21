@@ -9,7 +9,7 @@
     $rootScope.loggedIn = true
 
   $scope.login = ->
-    geotown.login (false).then ->
+    geotown.login(false).then ->
       $rootScope.$broadcast('user:login')
 
   $scope.initApi = () ->

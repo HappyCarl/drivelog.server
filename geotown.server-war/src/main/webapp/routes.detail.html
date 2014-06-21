@@ -2,6 +2,7 @@
     <div class="panel-heading" ng-show="route != null">
         <h3 class="panel-title">
             {{route.name}}
+            <a class="btn btn-danger pull-right btn-xs" ng-click="deleteRoute(route)"><span class="glyphicon glyphicon-trash"></span></a>
         </h3>
     </div>
     <div class="panel-body">
@@ -28,7 +29,7 @@
                             <h3 class="panel-title">
                                 Waypoints
                                 <div class="pull-right">
-                                    <a ng-click="showCreateWaypointModal()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                    <a ng-click="showCreateWaypointModal()" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>
                             </h3>
                         </div>

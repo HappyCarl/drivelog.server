@@ -6,8 +6,16 @@
         cb() if (--apisToLoad == 0)
 
       apisToLoad = 2
-      apiRoot = '//' + window.location.host + '/_ah/api'
-      gapi.client.load('geotown', 'v1', loadCallback, apiRoot)
+
+      host = window.location.host
+      if host.indexOf("localhost") > -1
+        host = "//" + host
+      else if host.indexOf("beta") > -1
+        host = "https://beta-dot-drive-log.appspot.com"
+      else
+        host = "https://drive-log.appspot.com"
+
+      gapi.client.load('geotown', 'v1', loadCallback, host + '/_ah/api')
       gapi.client.load('oauth2', 'v2', loadCallback)
 
     login: (mode) ->

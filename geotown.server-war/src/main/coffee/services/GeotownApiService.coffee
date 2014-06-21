@@ -1,4 +1,4 @@
-@geotownApp.factory('geotown', ($q, $rootScope) ->
+@geotownApp.factory('geotown', ($q, $rootScope, cfpLoadingBar) ->
   {
     init: (cb) ->
       apisToLoad;
@@ -11,6 +11,7 @@
       gapi.client.load('oauth2', 'v2', loadCallback)
 
     login: (mode) ->
+      cfpLoadingBar.start()
       deferred = $q.defer()
 
       gapi.auth.authorize({
@@ -20,6 +21,9 @@
           response_type : 'token id_token'
         }, () ->
           gapi.client.oauth2.userinfo.get().execute((resp) ->
+
+            cfpLoadingBar.complete()
+
             if !resp.code?
               token = gapi.auth.getToken()
               token.access_token = token.id_token
@@ -35,9 +39,13 @@
       deferred.promise
 
     getMyRoutes: () ->
+      cfpLoadingBar.start()
       deferred = $q.defer()
 
       gapi.client.geotown.routes.listMine().execute (resp) ->
+
+        cfpLoadingBar.complete()
+
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -48,9 +56,13 @@
       deferred.promise
 
     createRoute: (route) ->
+      cfpLoadingBar.start()
       deferred = $q.defer()
 
       gapi.client.geotown.routes.insert(route).execute (resp) ->
+
+        cfpLoadingBar.complete()
+
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -61,9 +73,13 @@
       deferred.promise
 
     getRoute: (id) ->
+      cfpLoadingBar.start()
       deferred = $q.defer()
 
       gapi.client.geotown.routes.get({routeId: parseInt(id)}).execute (resp) ->
+
+        cfpLoadingBar.complete()
+
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -74,9 +90,13 @@
       deferred.promise
 
     createWaypoint: (waypoint) ->
+      cfpLoadingBar.start()
       deferred = $q.defer()
 
       gapi.client.geotown.waypoints.insert(waypoint).execute (resp) ->
+
+        cfpLoadingBar.complete()
+
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp
@@ -87,9 +107,13 @@
       deferred.promise
 
     listWaypoints: (routeId) ->
+      cfpLoadingBar.start()
       deferred = $q.defer()
 
       gapi.client.geotown.waypoints.list({routeId: routeId}).execute (resp) ->
+
+        cfpLoadingBar.complete()
+
         if resp.code?
           $rootScope.$apply ->
             deferred.reject resp

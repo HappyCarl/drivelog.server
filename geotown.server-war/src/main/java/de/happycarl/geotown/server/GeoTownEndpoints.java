@@ -7,9 +7,11 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ForbiddenException;
+import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.users.User;
-import com.googlecode.objectify.ObjectifyService;
+import com.google.common.collect.Lists;
+import com.googlecode.objectify.Key;
 import de.happycarl.geotown.server.models.Route;
 import de.happycarl.geotown.server.models.UserData;
 import de.happycarl.geotown.server.models.Waypoint;
@@ -43,14 +45,18 @@ public class GeoTownEndpoints {
     public List<Route> listMyRoutes(User user) throws UnauthorizedException {
         UserData userData = getOrCreateUserData(user);
 
-        return OfyService.ofy().load().type(Route.class).filter("owner", userData).list();
+        List<Route> routes = OfyService.ofy().load().type(Route.class).filter("owner", userData).list();
+        if (routes == null) return Lists.newArrayList();
+        return routes;
     }
 
     @ApiMethod(name = "routes.listNear", path = "routes.near")
     public List<Route> listNearRoutes(@Named("latitude") double latitude, @Named("longitude") double longitude, @Named("radius") double radius) {
         LocationCapableRepositorySearch<Route> ofySearch = new OfyEntityLocationCapableRepositorySearchImpl(OfyService.ofy());
 
-        return GeocellManager.proximityFetch(new Point(latitude, longitude), 20, radius, ofySearch);
+        List<Route> routes = GeocellManager.proximityFetch(new Point(latitude, longitude), 20, radius, ofySearch);
+        if (routes == null) return Lists.newArrayList();
+        return routes;
     }
 
     @ApiMethod(name = "routes.insert", path = "routes")
@@ -72,15 +78,19 @@ public class GeoTownEndpoints {
     }
 
     @ApiMethod(name = "routes.get", path = "routes.get")
-    public Route getRoute(@Named("routeId") Long routeId, User user) {
-        return OfyService.ofy().load().type(Route.class).id(routeId)
-                .safe();
+    public Route getRoute(@Named("routeId") Long routeId, User user) throws NotFoundException {
+        Route route = OfyService.ofy().load().type(Route.class).id(routeId)
+                .now();
+        if (route == null) throw new NotFoundException("The Route could not be found.");
+        return route;
     }
 
     @ApiMethod(name = "routes.delete", path = "routes")
-    public void deleteRoute(@Named("routeId") Long routeId, User user) throws ForbiddenException, UnauthorizedException {
+    public void deleteRoute(@Named("routeId") Long routeId, User user) throws ForbiddenException, UnauthorizedException, NotFoundException {
         UserData userData = getOrCreateUserData(user);
-        Route route = OfyService.ofy().load().type(Route.class).id(routeId).safe();
+        Route route = OfyService.ofy().load().type(Route.class).id(routeId).now();
+
+        if (route == null) throw new NotFoundException("The Route could not be found.");
 
         if (!route.getOwner().equals(userData))
             throw new ForbiddenException(
@@ -91,9 +101,10 @@ public class GeoTownEndpoints {
 
     @ApiMethod(name = "waypoints.list", path = "waypoints")
     public List<Waypoint> listWaypoints(@Named("routeId") Long routeId, User user) {
-        Route r = OfyService.ofy().load().type(Route.class).id(routeId).safe();
+        List<Waypoint> waypoints = OfyService.ofy().load().type(Waypoint.class).filter("route", Key.create(Route.class, routeId)).list();
 
-        return OfyService.ofy().load().type(Waypoint.class).filter("route", r).list();
+        if (waypoints == null) return Lists.newArrayList();
+        return waypoints;
     }
 
     @ApiMethod(name = "waypoints.insert", path = "waypoints")
@@ -101,11 +112,14 @@ public class GeoTownEndpoints {
                                 @Named("latitude") double latitude, @Named("longitude") double longitude,
                                 @Named("question") String question,
                                 @Named("answers") List<String> answers, User user)
-            throws UnauthorizedException, ForbiddenException {
+            throws UnauthorizedException, ForbiddenException, NotFoundException {
         UserData userData = getOrCreateUserData(user);
 
         Route route = OfyService.ofy().load().type(Route.class).id(routeId)
-                .safe();
+                .now();
+
+        if (route == null)
+            throw new NotFoundException("The Route could not be found.");
 
         if (!route.getOwner().equals(userData))
             throw new ForbiddenException(
@@ -121,9 +135,11 @@ public class GeoTownEndpoints {
     }
 
     @ApiMethod(name = "waypoints.delete", path = "waypoints")
-    public void deleteWaypoint(@Named("waypointId") Long waypointId, User user) throws ForbiddenException, UnauthorizedException {
+    public void deleteWaypoint(@Named("waypointId") Long waypointId, User user) throws ForbiddenException, UnauthorizedException, NotFoundException {
         UserData userData = getOrCreateUserData(user);
-        Waypoint waypoint = OfyService.ofy().load().type(Waypoint.class).id(waypointId).safe();
+        Waypoint waypoint = OfyService.ofy().load().type(Waypoint.class).id(waypointId).now();
+
+        if (waypoint == null) throw new NotFoundException("The Waypoint could not be found.");
 
         if (!waypoint.getRoute().getOwner().equals(userData))
             throw new ForbiddenException(

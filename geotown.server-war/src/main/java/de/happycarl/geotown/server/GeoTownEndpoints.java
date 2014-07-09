@@ -9,6 +9,8 @@ import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ForbiddenException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.User;
 import com.google.common.collect.Lists;
 import com.googlecode.objectify.Key;
@@ -148,6 +150,18 @@ public class GeoTownEndpoints {
                     "You're not allowed to delete this Waypoint.");
 
         OfyService.ofy().delete().entity(waypoint).now();
+    }
+
+    @ApiMethod(name = "app.getBlobstoreUrl", path="app")
+    public GetBlobstoreUploadUrlResponse getBlobstoreUrl(User user) throws UnauthorizedException {
+        if(user == null) throw new UnauthorizedException("Authorization required");
+
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+
+        GetBlobstoreUploadUrlResponse r = new GetBlobstoreUploadUrlResponse();
+        r.uploadUrl = blobstoreService.createUploadUrl("/uploadImage");
+
+        return r;
     }
 
     private static UserData getOrCreateUserData(User user)

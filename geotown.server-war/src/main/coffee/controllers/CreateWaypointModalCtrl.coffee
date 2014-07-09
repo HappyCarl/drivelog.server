@@ -58,10 +58,9 @@
         console.log "percent: " + parseInt(100.0 * evt.loaded / evt.total)
       ).success((data, status, headers, config) ->
         cfpLoadingBar.complete()
-        data = JSON.parse(data)
         console.log data
+
         $scope.data.blobstoreImageKey = data.blobkey
-        $scope.$apply()
       )
 
   $timeout(() ->

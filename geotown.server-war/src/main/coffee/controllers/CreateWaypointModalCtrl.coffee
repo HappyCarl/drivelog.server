@@ -5,7 +5,8 @@
     rightAnswer: ""
     question: "",
     latitude: 42,
-    longitude: 8
+    longitude: 8,
+    blobstoreImageKey: ""
   }
 
   $scope.map = {
@@ -22,7 +23,6 @@
 
   $scope.showMap = false
   $scope.creationPromise = null
-  $scope.fileBlobKey = ""
 
 
   $scope.addWrongAnswer = (answer) ->
@@ -60,7 +60,7 @@
         cfpLoadingBar.complete()
         data = JSON.parse(data)
         console.log data
-        $scope.fileBlobKey = data.blobkey
+        $scope.data.blobstoreImageKey = data.blobkey
         $scope.$apply()
       )
 

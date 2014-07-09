@@ -96,6 +96,7 @@ public class Waypoint {
     }
 
     public String getImageUrl() {
+        if(blobstoreImageKey == null || blobstoreImageKey.isEmpty()) return "";
         ImagesService imagesService = ImagesServiceFactory.getImagesService();
         String url = imagesService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(new BlobKey(blobstoreImageKey)));
         if(url == null) url = "";

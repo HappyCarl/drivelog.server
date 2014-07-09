@@ -1,5 +1,9 @@
 package de.happycarl.geotown.server.models;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
@@ -27,6 +31,8 @@ public class Waypoint {
     String question;
     String rightAnswer;
     List<String> wrongAnswers = new ArrayList<String>();
+
+    String blobstoreImageKey;
 
     public Waypoint(Route route, double latitude, double longitude) {
         this.route = Ref.create(route);
@@ -83,5 +89,14 @@ public class Waypoint {
 
     public void setRightAnswer(String rightAnswer) {
         this.rightAnswer = rightAnswer;
+    }
+
+    public void setBlobstoreImageKey(String blobstoreImageKey) {
+        this.blobstoreImageKey = blobstoreImageKey;
+    }
+
+    public String getImageUrl() {
+        ImagesService imagesService = ImagesServiceFactory.getImagesService();
+        return imagesService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(new BlobKey(blobstoreImageKey)));
     }
 }

@@ -114,7 +114,8 @@ public class GeoTownEndpoints {
                                 @Named("latitude") double latitude, @Named("longitude") double longitude,
                                 @Named("question") String question,
                                 @Named("wrongAnswers") List<String> wrongAnswers,
-                                @Named("rightAnswer") String rightAnswer, User user)
+                                @Named("rightAnswer") String rightAnswer,
+                                @Named("blobstoreImageKey") String blobstoreKey, User user)
             throws UnauthorizedException, ForbiddenException, NotFoundException {
         UserData userData = getOrCreateUserData(user);
 
@@ -132,6 +133,7 @@ public class GeoTownEndpoints {
         w.setQuestion(question);
         w.getWrongAnswers().addAll(wrongAnswers);
         w.setRightAnswer(rightAnswer);
+        w.setBlobstoreImageKey(blobstoreKey);
 
         OfyService.ofy().save().entities(w).now();
 

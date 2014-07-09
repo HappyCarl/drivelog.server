@@ -25,7 +25,8 @@ public class Waypoint {
     double longitude;
 
     String question;
-    List<String> answers = new ArrayList<String>();
+    String rightAnswer;
+    List<String> wrongAnswers = new ArrayList<String>();
 
     public Waypoint(Route route, double latitude, double longitude) {
         this.route = Ref.create(route);
@@ -68,8 +69,12 @@ public class Waypoint {
         this.question = question;
     }
 
-    public List<String> getAnswers() {
-        return answers;
+    public List<String> getWrongAnswers() {
+        return wrongAnswers;
+    }
+
+    public String getRightAnswer() {
+        return rightAnswer;
     }
 
     public boolean equals(Waypoint that) {

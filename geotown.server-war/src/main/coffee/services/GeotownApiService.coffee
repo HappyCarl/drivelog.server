@@ -154,5 +154,17 @@
           deferred.resolve resp
 
       deferred.promise
+
+    getUploadUrl: ->
+      cfpLoadingBar.start()
+      deferred = $q.defer()
+
+      gapi.client.geotown.app.getBlobstoreUrl().execute (resp) ->
+
+        cfpLoadingBar.complete()
+        $rootScope.$apply ->
+          deferred.resolve resp
+
+      deferred.promise
   }
 )

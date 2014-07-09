@@ -1,4 +1,4 @@
-@geotownApp.controller('CreateWaypointModalCtrl', ($scope, $modalInstance, geotown, route, $timeout) ->
+@geotownApp.controller('CreateWaypointModalCtrl', ($scope, $modalInstance, geotown, route, $timeout, $upload, cfpLoadingBar) ->
   $scope.data = {
     routeId: route.id
     wrongAnswers: []
@@ -19,9 +19,10 @@
     control: {}
   }
 
+
   $scope.showMap = false
   $scope.creationPromise = null
-
+  $scope.fileBlobKey = ""
 
 
   $scope.addWrongAnswer = (answer) ->
@@ -40,6 +41,28 @@
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
+
+
+  $scope.onFileSelect = ($files) ->
+    file = $files[0]
+
+    geotown.getUploadUrl().then (resp) ->
+      cfpLoadingBar.start()
+      $scope.upload = $upload.upload(
+        url: resp.uploadUrl
+
+        file: file
+        fileFormDataName: "image"
+      ).progress((evt) ->
+        cfpLoadingBar.set(evt.loaded / evt.total)
+        console.log "percent: " + parseInt(100.0 * evt.loaded / evt.total)
+      ).success((data, status, headers, config) ->
+        cfpLoadingBar.complete()
+        data = JSON.parse(data)
+        console.log data
+        $scope.fileBlobKey = data.blobkey
+        $scope.$apply()
+      )
 
   $timeout(() ->
     $scope.showMap = true

@@ -20,6 +20,10 @@ import java.util.List;
 @Cache
 @Index
 public class Waypoint {
+
+    private static ImagesService imagesService;
+
+
     @Id
     Long id;
 
@@ -97,7 +101,7 @@ public class Waypoint {
 
     public String getImageUrl() {
         if(blobstoreImageKey == null || blobstoreImageKey.isEmpty()) return "";
-        ImagesService imagesService = ImagesServiceFactory.getImagesService();
+        if(imagesService == null) imagesService = ImagesServiceFactory.getImagesService();
         String url = imagesService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(new BlobKey(blobstoreImageKey)));
         if(url == null) url = "";
         return url;

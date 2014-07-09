@@ -111,7 +111,8 @@ public class GeoTownEndpoints {
     public Route createWaypoint(@Named("routeId") Long routeId,
                                 @Named("latitude") double latitude, @Named("longitude") double longitude,
                                 @Named("question") String question,
-                                @Named("answers") List<String> answers, User user)
+                                @Named("wrongAnswers") List<String> wrongAnswers,
+                                @Named("rightAnswer") String rightAnswer, User user)
             throws UnauthorizedException, ForbiddenException, NotFoundException {
         UserData userData = getOrCreateUserData(user);
 
@@ -127,7 +128,8 @@ public class GeoTownEndpoints {
 
         Waypoint w = new Waypoint(route, latitude, longitude);
         w.setQuestion(question);
-        w.getAnswers().addAll(answers);
+        w.getWrongAnswers().addAll(wrongAnswers);
+        w.setRightAnswer(rightAnswer);
 
         OfyService.ofy().save().entities(w).now();
 

@@ -80,4 +80,8 @@ public class Waypoint {
     public boolean equals(Waypoint that) {
         return this.id.equals(that.id);
     }
+
+    public void setRightAnswer(String rightAnswer) {
+        this.rightAnswer = rightAnswer;
+    }
 }

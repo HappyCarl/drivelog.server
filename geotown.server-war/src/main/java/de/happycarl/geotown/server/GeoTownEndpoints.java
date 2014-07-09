@@ -9,6 +9,8 @@ import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ForbiddenException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.User;
 import com.google.common.collect.Lists;
 import com.googlecode.objectify.Key;
@@ -111,7 +113,9 @@ public class GeoTownEndpoints {
     public Route createWaypoint(@Named("routeId") Long routeId,
                                 @Named("latitude") double latitude, @Named("longitude") double longitude,
                                 @Named("question") String question,
-                                @Named("answers") List<String> answers, User user)
+                                @Named("wrongAnswers") List<String> wrongAnswers,
+                                @Named("rightAnswer") String rightAnswer,
+                                @Named("blobstoreImageKey") String blobstoreKey, User user)
             throws UnauthorizedException, ForbiddenException, NotFoundException {
         UserData userData = getOrCreateUserData(user);
 
@@ -127,7 +131,9 @@ public class GeoTownEndpoints {
 
         Waypoint w = new Waypoint(route, latitude, longitude);
         w.setQuestion(question);
-        w.getAnswers().addAll(answers);
+        w.getWrongAnswers().addAll(wrongAnswers);
+        w.setRightAnswer(rightAnswer);
+        w.setBlobstoreImageKey(blobstoreKey);
 
         OfyService.ofy().save().entities(w).now();
 
@@ -146,6 +152,18 @@ public class GeoTownEndpoints {
                     "You're not allowed to delete this Waypoint.");
 
         OfyService.ofy().delete().entity(waypoint).now();
+    }
+
+    @ApiMethod(name = "app.getBlobstoreUrl", path="app")
+    public GetBlobstoreUploadUrlResponse getBlobstoreUrl(User user) throws UnauthorizedException {
+        if(user == null) throw new UnauthorizedException("Authorization required");
+
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+
+        GetBlobstoreUploadUrlResponse r = new GetBlobstoreUploadUrlResponse();
+        r.uploadUrl = blobstoreService.createUploadUrl("/uploadImage");
+
+        return r;
     }
 
     private static UserData getOrCreateUserData(User user)

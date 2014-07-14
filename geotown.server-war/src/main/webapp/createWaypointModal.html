@@ -1,19 +1,19 @@
-<div class="modal-header">
-    <h3 class="modal-title">Create a Waypoint.</h3>
-</div>
-<div class="modal-body">
-    <form role="form">
-        <div class="form-group">
+<form role="form" name="waypointForm" ng-submit="ok(waypointForm)" novalidate>
+    <div class="modal-header">
+        <h3 class="modal-title">Create a Waypoint.</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng-class="{'has-error': waypointForm.question.$invalid, 'has-success': !waypointForm.question.$invalid}">
             <label for="question">Question</label>
-            <input type="text" class="form-control" id="question" ng-model="data.question" placeholder="Question" />
+            <input type="text" name="question" class="form-control" id="question" ng-model="data.question" placeholder="Question" required ng-minlength="3" />
         </div>
         <div class="form-group">
             <label for="image_file">Image</label>
-            <input type="file" id="image_file" ng-file-select="onFileSelect($files)" >
+            <input type="file" name="image_file" id="image_file" ng-file-select="onFileSelect($files)" />
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': waypointForm.rightAnswer.$invalid, 'has-success': !waypointForm.rightAnswer.$invalid}">
             <label for="rightAnswer">Right Answer</label>
-            <input type="text" class="form-control" id="rightAnswer" ng-model="data.rightAnswer" placeholder="Right Answer" />
+            <input type="text" name="rightAnswer" class="form-control" id="rightAnswer" ng-model="data.rightAnswer" placeholder="Right Answer" required />
         </div>
         <div class="form-group">
             <label for="wrongAnswer">Wrong Answers</label>
@@ -27,14 +27,14 @@
             <google-places location="data" class="form-control" type="">
             </google-places>
         </div>
-    </form>
-    <div ng-if="showMap">
-        <google-map refresh="map.refresh" draggable="true" center="data" zoom="map.zoom"  options="map.options">
-            <marker coords="data"></marker>
-        </google-map>
+        <div ng-if="showMap">
+            <google-map refresh="map.refresh" draggable="true" center="data" zoom="map.zoom"  options="map.options">
+                <marker coords="data"></marker>
+            </google-map>
+        </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">Create</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-</div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Create</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

@@ -16,9 +16,13 @@
   $scope.showMap = false
   $scope.creationPromise = null
 
-  $scope.ok = ->
-    $scope.creationPromise = geotown.createRoute($scope.data).then (resp) ->
-      $modalInstance.close(resp)
+  $scope.ok = (routeForm) ->
+    console.log routeForm
+    if routeForm.$valid
+      $scope.creationPromise = geotown.createRoute($scope.data).then (resp) ->
+        $modalInstance.close(resp)
+    else
+      alert("The form data is invalid!")
 
 
   $scope.cancel = ->

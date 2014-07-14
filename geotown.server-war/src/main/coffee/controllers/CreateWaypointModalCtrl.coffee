@@ -34,9 +34,12 @@
   $scope.removeWrongAnswer = (index) ->
     $scope.data.wrongAnswers = $scope.data.wrongAnswers.splice(index, 1)
 
-  $scope.ok = ->
-    $scope.creationPromise = geotown.createWaypoint($scope.data).then (resp) ->
-      $modalInstance.close(resp)
+  $scope.ok = (form) ->
+    if form.$valid and $scope.data.wrongAnswers.length > 0 and $scope.data.blobstoreImageKey != ""
+      $scope.creationPromise = geotown.createWaypoint($scope.data).then (resp) ->
+        $modalInstance.close(resp)
+    else
+      alert("The form data is invalid!")
 
 
   $scope.cancel = ->

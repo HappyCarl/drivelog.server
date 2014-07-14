@@ -1,25 +1,25 @@
-<div class="modal-header">
-    <h3 class="modal-title">Create a Route.</h3>
-</div>
-<div class="modal-body">
-    <form role="form">
-        <div class="form-group">
+<form role="form" name="routeForm" ng-submit="ok(routeForm)" novalidate>
+    <div class="modal-header">
+        <h3 class="modal-title">Create a Route.</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng-class="{'has-error': routeForm.name.$invalid, 'has-success': !routeForm.name.$invalid}">
             <label for="name">Name</label>
-            <input type="text" class="form-control" ng-model="data.name" placeholder="Enter a Name" id="name" />
+            <input type="text" name="name" class="form-control" ng-model="data.name" placeholder="Enter a Name" id="name" required ng-minlength="3" />
         </div>
         <div class="form-group">
             <label for="google_places_ac">Location</label>
             <google-places location="data" class="form-control" type="(cities)">
             </google-places>
         </div>
-    </form>
-    <div ng-if="showMap">
-        <google-map refresh="map.refresh" draggable="true" center="data" zoom="map.zoom"  options="map.options">
-            <marker coords="data"></marker>
-        </google-map>
+        <div ng-if="showMap">
+            <google-map refresh="map.refresh" draggable="true" center="data" zoom="map.zoom"  options="map.options">
+                <marker coords="data"></marker>
+            </google-map>
+        </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">Create</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-</div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Create</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

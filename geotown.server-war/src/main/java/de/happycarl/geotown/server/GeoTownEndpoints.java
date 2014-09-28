@@ -13,7 +13,6 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.users.User;
-import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.common.collect.Lists;
 import com.googlecode.objectify.Key;
 import de.happycarl.geotown.server.models.Route;
@@ -21,6 +20,7 @@ import de.happycarl.geotown.server.models.Track;
 import de.happycarl.geotown.server.models.UserData;
 import de.happycarl.geotown.server.models.Waypoint;
 import de.happycarl.geotown.server.util.OfyEntityLocationCapableRepositorySearchImpl;
+import org.joda.time.DateTime;
 
 import java.util.List;
 

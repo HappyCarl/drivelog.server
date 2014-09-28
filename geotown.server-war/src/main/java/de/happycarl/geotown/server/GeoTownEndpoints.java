@@ -211,6 +211,15 @@ public class GeoTownEndpoints {
         return r;
     }
 
+    @ApiMethod(name = "tracks.getAllTracks", path = "tracks")
+    public List<Track> getAllTracks(User user) throws UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+
+        List<Track> tracks = OfyService.ofy().load().type(Track.class).list();
+
+        return tracks;
+    }
+
     private static UserData getOrCreateUserData(User user)
             throws UnauthorizedException {
         if (user == null) {

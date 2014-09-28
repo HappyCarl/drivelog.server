@@ -12,9 +12,11 @@ import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.User;
+import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.common.collect.Lists;
 import com.googlecode.objectify.Key;
 import de.happycarl.geotown.server.models.Route;
+import de.happycarl.geotown.server.models.Track;
 import de.happycarl.geotown.server.models.UserData;
 import de.happycarl.geotown.server.models.Waypoint;
 import de.happycarl.geotown.server.util.OfyEntityLocationCapableRepositorySearchImpl;
@@ -164,6 +166,42 @@ public class GeoTownEndpoints {
         r.uploadUrl = blobstoreService.createUploadUrl("/uploadImage");
 
         return r;
+    }
+
+    @ApiMethod(name = "tracks.startTrack", path = "tracks")
+    public Track startTrack(@Named("routeId") Long routeId, User user) throws UnauthorizedException, NotFoundException {
+        UserData userData = getOrCreateUserData(user);
+        Route route = OfyService.ofy().load().type(Route.class).id(routeId).now();
+
+        if (route == null) throw new NotFoundException("The Route could not be found.");
+
+        Track track = new Track(userData, route);
+
+        OfyService.ofy().save().entities(track).now();
+
+        return track;
+    }
+
+    @ApiMethod(name = "tracks.finishTrack", path = "tracks")
+    public Track finishTrack(@Named("trackId") Long trackId, User user) throws UnauthorizedException, NotFoundException, ForbiddenException {
+        UserData userData = getOrCreateUserData(user);
+        Track track = OfyService.ofy().load().type(Track.class).id(trackId).now();
+
+        if(track == null) throw new NotFoundException("The Track could not be found.");
+
+        if(!track.getOwner().equals(userData)) throw new ForbiddenException("You're not allowed to edit this Track!");
+
+        track.setFinishTime(new DateTime());
+
+        OfyService.ofy().save().entities(track).now();
+
+        return track;
+    }
+
+    @ApiMethod(name = "tracks.getTrackGPXUploadURL", path = "tracks")
+    public void getTrackUploadURL(@Named("trackId") Long trackId, User user) throws UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+
     }
 
     private static UserData getOrCreateUserData(User user)

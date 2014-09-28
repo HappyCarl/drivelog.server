@@ -154,13 +154,13 @@ public class GeoTownEndpoints {
         OfyService.ofy().delete().entity(waypoint).now();
     }
 
-    @ApiMethod(name = "app.getBlobstoreUrl", path="app")
-    public GetBlobstoreUploadUrlResponse getBlobstoreUrl(User user) throws UnauthorizedException {
+    @ApiMethod(name = "app.getImageBlobstoreUrl", path="app")
+    public GetBlobstoreImageUploadUrlResponse getImageBlobstoreUrl(User user) throws UnauthorizedException {
         if(user == null) throw new UnauthorizedException("Authorization required");
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
-        GetBlobstoreUploadUrlResponse r = new GetBlobstoreUploadUrlResponse();
+        GetBlobstoreImageUploadUrlResponse r = new GetBlobstoreImageUploadUrlResponse();
         r.uploadUrl = blobstoreService.createUploadUrl("/uploadImage");
 
         return r;

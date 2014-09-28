@@ -1,7 +1,8 @@
 @geotownApp.controller('RouteDetailController', ($rootScope, $scope, $state, geotown, $modal) ->
 
   @initialWaypoint = {latitude: 0, longitude: 0, init: false, loading: true}
-
+  $scope.initialWaypoint = @initialWaypoint
+  
   $scope.route = null
   $scope.routePromise = null
   $scope.waypoints = []
@@ -39,7 +40,7 @@
       $state.go ("routes")
 
   $scope.deleteWaypoint = (w) ->
-    $scope.selectedWaypoint = initialWaypoint
+    $scope.selectedWaypoint = $scope.initialWaypoint
     $scope.map.center = $scope.route
     geotown.deleteWaypoint((w.id)).then ->
       $scope.fetchWaypoints()

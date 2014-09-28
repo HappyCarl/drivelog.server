@@ -6,12 +6,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<appengine.app.version>1</appengine.app.version>
-		<appengine.target.version>1.9.5</appengine.target.version>
+		<appengine.target.version>1.9.12</appengine.target.version>
 	</properties>
 
 	<groupId>de.happycarl</groupId>
 	<artifactId>geotown.server</artifactId>
-	<version>0.3.7</version>
+	<version>0.3.8</version>
 	<packaging>pom</packaging>
 
 

@@ -25,6 +25,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>UploadGPXServlet</servlet-name>
+        <servlet-class>de.happycarl.geotown.server.UploadGPXServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadGPXServlet</servlet-name>
+        <url-pattern>/uploadTrack</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServeGPXServlet</servlet-name>
+        <servlet-class>de.happycarl.geotown.server.ServeGPXServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServeGPXServlet</servlet-name>
+        <url-pattern>/serveTrackGPX</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>de.happycarl.geotown.server.MainServlet</servlet-class>
     </servlet>

@@ -11,6 +11,7 @@ import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.users.User;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.common.collect.Lists;
@@ -182,7 +183,7 @@ public class GeoTownEndpoints {
         return track;
     }
 
-    @ApiMethod(name = "tracks.finishTrack", path = "tracks")
+    @ApiMethod(name = "tracks.finishTrack", path = "tracks", httpMethod = "PUT")
     public Track finishTrack(@Named("trackId") Long trackId, @Named("imageKey") String imageKey, User user) throws UnauthorizedException, NotFoundException, ForbiddenException {
         UserData userData = getOrCreateUserData(user);
         Track track = OfyService.ofy().load().type(Track.class).id(trackId).now();
@@ -199,7 +200,7 @@ public class GeoTownEndpoints {
         return track;
     }
 
-    @ApiMethod(name = "tracks.getTrackGPXUploadURL", path = "tracks")
+    @ApiMethod(name = "tracks.getTrackGPXUploadURL", path = "tracks.uploadGpx")
     public GetBlobstoreTrackUploadUrlResponse getTrackUploadURL(User user) throws UnauthorizedException {
         UserData userData = getOrCreateUserData(user);
 
@@ -211,7 +212,7 @@ public class GeoTownEndpoints {
         return r;
     }
 
-    @ApiMethod(name = "tracks.getAllTracks", path = "tracks")
+    @ApiMethod(name = "tracks.getAllTracks", path = "tracks.all")
     public List<Track> getAllTracks(User user) throws UnauthorizedException {
         UserData userData = getOrCreateUserData(user);
 

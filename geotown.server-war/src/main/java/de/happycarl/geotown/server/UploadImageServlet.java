@@ -32,6 +32,7 @@ public class UploadImageServlet extends HttpServlet {
             response.put("blobkey", blobKey.getKeyString());
         }
 
+        res.setHeader("Access-Control-Allow-Origin", "*");
         res.getWriter().write(response.toString());
         res.getWriter().flush();
         res.getWriter().close();

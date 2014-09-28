@@ -43,20 +43,20 @@ public class Track {
         this.id = id;
     }
 
-    public Ref<UserData> getOwner() {
-        return owner;
+    public UserData getOwner() {
+        return owner.get();
     }
 
-    public void setOwner(Ref<UserData> owner) {
-        this.owner = owner;
+    public void setOwner(UserData owner) {
+        this.owner = Ref.create(owner);
     }
 
-    public Ref<Route> getRoute() {
-        return route;
+    public Route getRoute() {
+        return route.get();
     }
 
-    public void setRoute(Ref<Route> route) {
-        this.route = route;
+    public void setRoute(Route route) {
+        this.route = Ref.create(route);
     }
 
     public DateTime getCreationTime() {

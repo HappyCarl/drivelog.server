@@ -183,7 +183,7 @@ public class GeoTownEndpoints {
     }
 
     @ApiMethod(name = "tracks.finishTrack", path = "tracks")
-    public Track finishTrack(@Named("trackId") Long trackId, User user) throws UnauthorizedException, NotFoundException, ForbiddenException {
+    public Track finishTrack(@Named("trackId") Long trackId, @Named("imageKey") String imageKey, User user) throws UnauthorizedException, NotFoundException, ForbiddenException {
         UserData userData = getOrCreateUserData(user);
         Track track = OfyService.ofy().load().type(Track.class).id(trackId).now();
 
@@ -192,6 +192,7 @@ public class GeoTownEndpoints {
         if(!track.getOwner().equals(userData)) throw new ForbiddenException("You're not allowed to edit this Track!");
 
         track.setFinishTime(new DateTime());
+        track.setBlobstoreTrackKey(imageKey);
 
         OfyService.ofy().save().entities(track).now();
 
@@ -199,9 +200,15 @@ public class GeoTownEndpoints {
     }
 
     @ApiMethod(name = "tracks.getTrackGPXUploadURL", path = "tracks")
-    public void getTrackUploadURL(@Named("trackId") Long trackId, User user) throws UnauthorizedException {
+    public GetBlobstoreTrackUploadUrlResponse getTrackUploadURL(User user) throws UnauthorizedException {
         UserData userData = getOrCreateUserData(user);
 
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+
+        GetBlobstoreTrackUploadUrlResponse r = new GetBlobstoreTrackUploadUrlResponse();
+        r.uploadUrl = blobstoreService.createUploadUrl("/uploadTrack");
+
+        return r;
     }
 
     private static UserData getOrCreateUserData(User user)

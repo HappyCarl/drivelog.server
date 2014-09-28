@@ -1,11 +1,15 @@
 package de.happycarl.geotown.server.models;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by Jan-Henrik on 28.09.2014.
@@ -77,5 +81,23 @@ public class Track {
 
     public void setBlobstoreTrackKey(String blobstoreTrackKey) {
         this.blobstoreTrackKey = blobstoreTrackKey;
+    }
+
+    public String getGPXUrl() {
+        if(blobstoreTrackKey == null || blobstoreTrackKey.isEmpty()) return "";
+
+        String url;
+
+        if (StringUtils.equals("Production", System.getProperty("com.google.appengine.runtime.environment"))) {
+            String applicationId = System.getProperty("com.google.appengine.application.id");
+            String version = System.getProperty("com.google.appengine.application.version");
+            url = "http://"+version+"."+applicationId+".appspot.com";
+        } else {
+            url = "http://localhost:8888";
+        }
+
+        url += "/serveTrackGPX?key=" + blobstoreTrackKey;
+
+        return url;
     }
 }

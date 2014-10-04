@@ -26,6 +26,8 @@ public class Track {
 
     String blobstoreTrackKey;
 
+    public Track() {}
+
     public Track(UserData owner, Route route) {
         this.owner = Ref.create(owner);
         this.route = Ref.create(route);

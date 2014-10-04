@@ -8,12 +8,12 @@
     <parent>
         <groupId>de.happycarl</groupId>
         <artifactId>geotown.server</artifactId>
-        <version>0.3.8-SNAPSHOT</version>
+        <version>0.3.9-SNAPSHOT</version>
     </parent>
 
     <properties>
         <appengine.app.version>1-war</appengine.app.version>
-        <appengine.target.version>1.9.5</appengine.target.version>
+        <appengine.target.version>1.9.12</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -64,6 +64,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20140107</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.4</version>
         </dependency>
     </dependencies>
 

@@ -159,7 +159,7 @@
       cfpLoadingBar.start()
       deferred = $q.defer()
 
-      gapi.client.geotown.app.getBlobstoreUrl().execute (resp) ->
+      gapi.client.geotown.app.getImageBlobstoreUrl().execute (resp) ->
 
         cfpLoadingBar.complete()
         $rootScope.$apply ->

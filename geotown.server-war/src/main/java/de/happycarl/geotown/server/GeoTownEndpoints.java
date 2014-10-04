@@ -11,13 +11,16 @@ import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.users.User;
 import com.google.common.collect.Lists;
 import com.googlecode.objectify.Key;
 import de.happycarl.geotown.server.models.Route;
+import de.happycarl.geotown.server.models.Track;
 import de.happycarl.geotown.server.models.UserData;
 import de.happycarl.geotown.server.models.Waypoint;
 import de.happycarl.geotown.server.util.OfyEntityLocationCapableRepositorySearchImpl;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -154,16 +157,68 @@ public class GeoTownEndpoints {
         OfyService.ofy().delete().entity(waypoint).now();
     }
 
-    @ApiMethod(name = "app.getBlobstoreUrl", path="app")
-    public GetBlobstoreUploadUrlResponse getBlobstoreUrl(User user) throws UnauthorizedException {
+    @ApiMethod(name = "app.getImageBlobstoreUrl", path="app")
+    public GetBlobstoreImageUploadUrlResponse getImageBlobstoreUrl(User user) throws UnauthorizedException {
         if(user == null) throw new UnauthorizedException("Authorization required");
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
-        GetBlobstoreUploadUrlResponse r = new GetBlobstoreUploadUrlResponse();
+        GetBlobstoreImageUploadUrlResponse r = new GetBlobstoreImageUploadUrlResponse();
         r.uploadUrl = blobstoreService.createUploadUrl("/uploadImage");
 
         return r;
+    }
+
+    @ApiMethod(name = "tracks.startTrack", path = "tracks")
+    public Track startTrack(@Named("routeId") Long routeId, User user) throws UnauthorizedException, NotFoundException {
+        UserData userData = getOrCreateUserData(user);
+        Route route = OfyService.ofy().load().type(Route.class).id(routeId).now();
+
+        if (route == null) throw new NotFoundException("The Route could not be found.");
+
+        Track track = new Track(userData, route);
+
+        OfyService.ofy().save().entities(track).now();
+
+        return track;
+    }
+
+    @ApiMethod(name = "tracks.finishTrack", path = "tracks", httpMethod = "PUT")
+    public Track finishTrack(@Named("trackId") Long trackId, @Named("imageKey") String imageKey, User user) throws UnauthorizedException, NotFoundException, ForbiddenException {
+        UserData userData = getOrCreateUserData(user);
+        Track track = OfyService.ofy().load().type(Track.class).id(trackId).now();
+
+        if(track == null) throw new NotFoundException("The Track could not be found.");
+
+        if(!track.getOwner().equals(userData)) throw new ForbiddenException("You're not allowed to edit this Track!");
+
+        track.setFinishTime(new DateTime());
+        track.setBlobstoreTrackKey(imageKey);
+
+        OfyService.ofy().save().entities(track).now();
+
+        return track;
+    }
+
+    @ApiMethod(name = "tracks.getTrackGPXUploadURL", path = "tracks.uploadGpx")
+    public GetBlobstoreTrackUploadUrlResponse getTrackUploadURL(User user) throws UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+
+        GetBlobstoreTrackUploadUrlResponse r = new GetBlobstoreTrackUploadUrlResponse();
+        r.uploadUrl = blobstoreService.createUploadUrl("/uploadTrack");
+
+        return r;
+    }
+
+    @ApiMethod(name = "tracks.getAllTracks", path = "tracks.all")
+    public List<Track> getAllTracks(User user) throws UnauthorizedException {
+        UserData userData = getOrCreateUserData(user);
+
+        List<Track> tracks = OfyService.ofy().load().type(Track.class).list();
+
+        return tracks;
     }
 
     private static UserData getOrCreateUserData(User user)

@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by jhbruhn on 09.07.14.
+ * Created by Jan-Henrik on 28.09.2014.
  */
-public class UploadImageServlet extends HttpServlet {
+public class UploadGPXServlet extends HttpServlet {
     private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
     @Override
@@ -24,7 +24,7 @@ public class UploadImageServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
-        BlobKey blobKey = blobs.get("image").get(0);
+        BlobKey blobKey = blobs.get("gpx").get(0);
 
         JSONObject response = new JSONObject();
 

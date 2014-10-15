@@ -6,7 +6,7 @@
             <a ng-click="showCreateRouteModal()" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-plus-sign"></span></a>
             </h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="height: 350px; overflow-y: auto; overflow-wrap: break-word; width: 100%">
             <ul class="nav nav-pills nav-stacked">
                 <li ui-sref-active="active" ng-repeat="route in routes">
                     <a ui-sref="routes.detail({id: route.id})">{{route.name}}</a>

@@ -1,3 +1,6 @@
+window.init = ->
+  window.timeoutD = setTimeout(window.init, 500)
+
 @initStuff = () ->
   window.init()
 

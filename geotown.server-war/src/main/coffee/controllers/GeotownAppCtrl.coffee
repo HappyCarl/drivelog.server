@@ -2,6 +2,7 @@
   $rootScope.loggedIn = false
 
   $window.init = ->
+    clearTimeout($window.timeoutD);
     $scope.$apply($scope.initApi)
 
 
